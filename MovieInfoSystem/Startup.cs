@@ -8,6 +8,7 @@ namespace MovieInfoSystem
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using MovieInfoSystem.Data;
+    using MovieInfoSystem.Infrastructure;
 
     public class Startup
     {
@@ -36,6 +37,8 @@ namespace MovieInfoSystem
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.PrepareDatabase();
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
