@@ -1,7 +1,9 @@
-﻿namespace MyWebProjectDb.Data.Models
+﻿namespace MovieInfoSystem.Data.Models
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
+    using static DataConstants;
 
     public class Director
     {
@@ -9,12 +11,12 @@
         public int Id { get; init; }
 
         [Required]
-        [MaxLength(30)]
+        [MaxLength(NameMaxLength)]
         public string FirstName { get; set; }
 
-        [MaxLength(30)]
+        [MaxLength(NameMaxLength)]
         public string LastName { get; set; }
 
-        public ICollection<Movie> Movies { get; init; } = new HashSet<Movie>();
+        public ICollection<DirectorMovie> Movies { get; init; } = new HashSet<DirectorMovie>();
     }
 }

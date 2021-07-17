@@ -1,21 +1,22 @@
-﻿namespace MyWebProjectDb.Data.Models
+﻿namespace MovieInfoSystem.Data.Models
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using static DataConstants;
     public class Actor
     {
         [Key]
         public int Id { get; init; }
 
         [Required]
-        [MaxLength(30)]
+        [MaxLength(NameMaxLength)]
         public string FirstName { get; set; }
 
         [Required]
-        [MaxLength(30)]
+        [MaxLength(NameMaxLength)]
         public string LastName { get; set; }
 
-        public IEnumerable<Movie> Movies { get; init; } = new HashSet<Movie>();
+        public IEnumerable<ActorMovie> Movies { get; init; } = new HashSet<ActorMovie>();
     }
 }

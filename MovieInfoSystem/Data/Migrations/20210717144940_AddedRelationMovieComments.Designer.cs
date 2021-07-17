@@ -10,8 +10,8 @@ using MovieInfoSystem.Data;
 namespace MovieInfoSystem.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210714172818_TablesCreaton")]
-    partial class TablesCreaton
+    [Migration("20210717144940_AddedRelationMovieComments")]
+    partial class AddedRelationMovieComments
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,66 +20,6 @@ namespace MovieInfoSystem.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("ActorMovie", b =>
-                {
-                    b.Property<int>("ActorsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MoviesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ActorsId", "MoviesId");
-
-                    b.HasIndex("MoviesId");
-
-                    b.ToTable("ActorMovie");
-                });
-
-            modelBuilder.Entity("CountryMovie", b =>
-                {
-                    b.Property<int>("CountriesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MoviesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CountriesId", "MoviesId");
-
-                    b.HasIndex("MoviesId");
-
-                    b.ToTable("CountryMovie");
-                });
-
-            modelBuilder.Entity("DirectorMovie", b =>
-                {
-                    b.Property<int>("DirectorsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MoviesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DirectorsId", "MoviesId");
-
-                    b.HasIndex("MoviesId");
-
-                    b.ToTable("DirectorMovie");
-                });
-
-            modelBuilder.Entity("GenreMovie", b =>
-                {
-                    b.Property<int>("GenresId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MoviesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GenresId", "MoviesId");
-
-                    b.HasIndex("MoviesId");
-
-                    b.ToTable("GenreMovie");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -281,7 +221,7 @@ namespace MovieInfoSystem.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("MyWebProjectDb.Data.Models.Actor", b =>
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.Actor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -290,20 +230,35 @@ namespace MovieInfoSystem.Data.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Actors");
                 });
 
-            modelBuilder.Entity("MyWebProjectDb.Data.Models.Comment", b =>
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.ActorMovie", b =>
+                {
+                    b.Property<int>("ActorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ActorId", "MovieId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("ActorMovie");
+                });
+
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -323,7 +278,7 @@ namespace MovieInfoSystem.Data.Migrations
                     b.Property<int>("Likes")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MovieId")
+                    b.Property<int>("MovieId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -333,7 +288,7 @@ namespace MovieInfoSystem.Data.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("MyWebProjectDb.Data.Models.Country", b =>
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.Country", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -350,7 +305,22 @@ namespace MovieInfoSystem.Data.Migrations
                     b.ToTable("Countries");
                 });
 
-            modelBuilder.Entity("MyWebProjectDb.Data.Models.Director", b =>
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.CountryMovie", b =>
+                {
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CountryId", "MovieId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("CountryMovie");
+                });
+
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.Director", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -359,19 +329,34 @@ namespace MovieInfoSystem.Data.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("LastName")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Directors");
                 });
 
-            modelBuilder.Entity("MyWebProjectDb.Data.Models.Genre", b =>
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.DirectorMovie", b =>
+                {
+                    b.Property<int>("DirectorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DirectorId", "MovieId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("DirectorMOvie");
+                });
+
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.Genre", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -380,14 +365,30 @@ namespace MovieInfoSystem.Data.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("MyWebProjectDb.Data.Models.Movie", b =>
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.GenreMovie", b =>
+                {
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GenreId", "MovieId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("GenreMovie");
+                });
+
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.Movie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -425,66 +426,6 @@ namespace MovieInfoSystem.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Movies");
-                });
-
-            modelBuilder.Entity("ActorMovie", b =>
-                {
-                    b.HasOne("MyWebProjectDb.Data.Models.Actor", null)
-                        .WithMany()
-                        .HasForeignKey("ActorsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyWebProjectDb.Data.Models.Movie", null)
-                        .WithMany()
-                        .HasForeignKey("MoviesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CountryMovie", b =>
-                {
-                    b.HasOne("MyWebProjectDb.Data.Models.Country", null)
-                        .WithMany()
-                        .HasForeignKey("CountriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyWebProjectDb.Data.Models.Movie", null)
-                        .WithMany()
-                        .HasForeignKey("MoviesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DirectorMovie", b =>
-                {
-                    b.HasOne("MyWebProjectDb.Data.Models.Director", null)
-                        .WithMany()
-                        .HasForeignKey("DirectorsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyWebProjectDb.Data.Models.Movie", null)
-                        .WithMany()
-                        .HasForeignKey("MoviesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("GenreMovie", b =>
-                {
-                    b.HasOne("MyWebProjectDb.Data.Models.Genre", null)
-                        .WithMany()
-                        .HasForeignKey("GenresId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyWebProjectDb.Data.Models.Movie", null)
-                        .WithMany()
-                        .HasForeignKey("MoviesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -538,16 +479,124 @@ namespace MovieInfoSystem.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MyWebProjectDb.Data.Models.Comment", b =>
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.ActorMovie", b =>
                 {
-                    b.HasOne("MyWebProjectDb.Data.Models.Movie", null)
-                        .WithMany("Comments")
-                        .HasForeignKey("MovieId");
+                    b.HasOne("MovieInfoSystem.Data.Models.Actor", "Actor")
+                        .WithMany("Movies")
+                        .HasForeignKey("ActorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MovieInfoSystem.Data.Models.Movie", "Movie")
+                        .WithMany("Actors")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Actor");
+
+                    b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("MyWebProjectDb.Data.Models.Movie", b =>
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.Comment", b =>
                 {
+                    b.HasOne("MovieInfoSystem.Data.Models.Movie", "Movie")
+                        .WithMany("Comments")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.CountryMovie", b =>
+                {
+                    b.HasOne("MovieInfoSystem.Data.Models.Country", "Country")
+                        .WithMany("Movies")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MovieInfoSystem.Data.Models.Movie", "Movie")
+                        .WithMany("Countries")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Country");
+
+                    b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.DirectorMovie", b =>
+                {
+                    b.HasOne("MovieInfoSystem.Data.Models.Director", "Director")
+                        .WithMany("Movies")
+                        .HasForeignKey("DirectorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MovieInfoSystem.Data.Models.Movie", "Movie")
+                        .WithMany("Directors")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Director");
+
+                    b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.GenreMovie", b =>
+                {
+                    b.HasOne("MovieInfoSystem.Data.Models.Genre", "Genre")
+                        .WithMany("Movies")
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MovieInfoSystem.Data.Models.Movie", "Movie")
+                        .WithMany("Genres")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Genre");
+
+                    b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.Actor", b =>
+                {
+                    b.Navigation("Movies");
+                });
+
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.Country", b =>
+                {
+                    b.Navigation("Movies");
+                });
+
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.Director", b =>
+                {
+                    b.Navigation("Movies");
+                });
+
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.Genre", b =>
+                {
+                    b.Navigation("Movies");
+                });
+
+            modelBuilder.Entity("MovieInfoSystem.Data.Models.Movie", b =>
+                {
+                    b.Navigation("Actors");
+
                     b.Navigation("Comments");
+
+                    b.Navigation("Countries");
+
+                    b.Navigation("Directors");
+
+                    b.Navigation("Genres");
                 });
 #pragma warning restore 612, 618
         }

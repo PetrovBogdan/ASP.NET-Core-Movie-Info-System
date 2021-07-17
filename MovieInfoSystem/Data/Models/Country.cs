@@ -1,16 +1,17 @@
-﻿namespace MyWebProjectDb.Data.Models
+﻿namespace MovieInfoSystem.Data.Models
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using static DataConstants;
     public class Country
     {
         public int Id { get; init; }
 
         [Required]
-        [MaxLength(56)]
+        [MaxLength(CountryNameMaxLength)]
         public string Name { get; set; }
 
-        public IEnumerable<Movie> Movies { get; init; } = new HashSet<Movie>();
+        public IEnumerable<CountryMovie> Movies { get; init; } = new HashSet<CountryMovie>();
     }
 }

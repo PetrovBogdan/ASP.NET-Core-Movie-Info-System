@@ -6,7 +6,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
     using MovieInfoSystem.Data;
-    using MyWebProjectDb.Data.Models;
+    using MovieInfoSystem.Data.Models;
 
     public static class ApplicationBuilderExtensions
     {

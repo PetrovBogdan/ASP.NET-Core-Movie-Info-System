@@ -1,4 +1,4 @@
-﻿namespace MyWebProjectDb.Data.Models
+﻿namespace MovieInfoSystem.Data.Models
 {
     using System;
     using System.Collections.Generic;
@@ -30,15 +30,15 @@
         [Required]
         public TimeSpan Duration { get; set; }
 
-        public ICollection<Director> Directors { get; init; } = new HashSet<Director>();
+        public ICollection<DirectorMovie> Directors { get; init; } = new HashSet<DirectorMovie>();
 
-        public ICollection<Genre> Genres { get; init; } = new HashSet<Genre>();
+        public ICollection<GenreMovie> Genres { get; init; } = new HashSet<GenreMovie>();
 
-        public ICollection<Country> Countries { get; init; } = new HashSet<Country>();
+        public ICollection<CountryMovie> Countries { get; init; } = new HashSet<CountryMovie>();
 
-        public ICollection<Actor> Actors { get; init; } = new HashSet<Actor>();
+        public ICollection<ActorMovie> Actors { get; init; } = new HashSet<ActorMovie>();
 
-        public IEnumerable<Comment> Comments { get; init; } = new HashSet<Comment>();
+        public ICollection<Comment> Comments { get; init; } = new HashSet<Comment>();
 
     }
 }

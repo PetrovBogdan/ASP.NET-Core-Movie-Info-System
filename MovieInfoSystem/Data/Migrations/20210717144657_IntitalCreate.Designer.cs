@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieInfoSystem.Data;
 
 namespace MovieInfoSystem.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210717144657_IntitalCreate")]
+    partial class IntitalCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,7 +278,7 @@ namespace MovieInfoSystem.Data.Migrations
                     b.Property<int>("Likes")
                         .HasColumnType("int");
 
-                    b.Property<int>("MovieId")
+                    b.Property<int?>("MovieId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -498,13 +500,9 @@ namespace MovieInfoSystem.Data.Migrations
 
             modelBuilder.Entity("MovieInfoSystem.Data.Models.Comment", b =>
                 {
-                    b.HasOne("MovieInfoSystem.Data.Models.Movie", "Movie")
+                    b.HasOne("MovieInfoSystem.Data.Models.Movie", null)
                         .WithMany("Comments")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Movie");
+                        .HasForeignKey("MovieId");
                 });
 
             modelBuilder.Entity("MovieInfoSystem.Data.Models.CountryMovie", b =>

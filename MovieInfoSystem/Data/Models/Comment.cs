@@ -1,4 +1,4 @@
-﻿namespace MyWebProjectDb.Data.Models
+﻿namespace MovieInfoSystem.Data.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -16,6 +16,10 @@
         public int Likes { get; set; }
 
         public int Dislikes { get; set; }
+
+        public int MovieId { get; set; }
+
+        public Movie Movie { get; set; }
 
     }
 }
