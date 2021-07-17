@@ -49,6 +49,8 @@
                 new Genre{Type = "Musical"},
                 new Genre{Type = "Crime"},
             });
+
+            data.SaveChanges();
         }
 
     }

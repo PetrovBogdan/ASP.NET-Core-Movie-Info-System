@@ -1,0 +1,78 @@
+﻿@model AddMovieFormModel
+
+@{
+    ViewBag.Title = "Add Movie";
+
+    var actors = new List<MovieActorViewModel>();
+}
+
+<div class="container">
+    <div class="row">
+        <div class=" col-md-6 col-sm-12 offset-md-2">
+            <form method="post">
+                <h2 class="text-center p-3">Add Movie</h2>
+                <div class="form-group">
+                    <label asp-for="Title"></label>
+                    <input asp-for="Title" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImageUrl"></label>
+                    <input asp-for="ImageUrl" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Audio"></label>
+                    <input asp-for="Audio" class="form-control" placeholder="English, Bulgarian, ect. ">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Duration"></label>
+                    <input asp-for="Duration" class="form-control" placeholder="hh/mm/ss">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Summary">Summary</label>
+                    <textarea asp-for="Summary" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GenreId">Genre</label>
+                    <select asp-for="GenreId" class="form-control" multiple>
+                        @foreach (var genre in Model.Genres)
+                        {
+                            <option value="@genre.Id">@genre.Type</option>
+                        }
+                    </select>
+                </div>
+                <div>
+                    <h6 class="text-center p-1">Actors</h6>
+                    <div class="row">
+                        <div class="col">
+                            <label></label>
+                            <input type="text" class="form-control" placeholder="First name">
+                        </div>
+                        <div class="col">
+                            <label></label>
+                            <input type="text" class="form-control" placeholder="Last name">
+                        </div>
+                    </div>
+                    <br />
+                    <div>
+                        <h6 class="text-center p-1">Directors</h6>
+                        <div class="row">
+                            <div class="col">
+                                <label></label>
+                                <input type="text" class="form-control" placeholder="First name">
+                            </div>
+                            <div class="col">
+                                <label></label>
+                                <input type="text" class="form-control" placeholder="Last name">
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <label>Countries</label>
+                            <input class="form-control" placeholder="USA, Bulgaria, etc.">
+                        </div>
+                        <br />
+                        <button type="submit" class=" btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
