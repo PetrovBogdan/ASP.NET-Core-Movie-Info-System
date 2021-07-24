@@ -33,7 +33,6 @@
 
             data.Genres.AddRange(new[]
             {
-                new Genre {Type = "Horor"},
                 new Genre{Type = "Comedy"},
                 new Genre{Type = "Action"},
                 new Genre{Type = "Drama"},

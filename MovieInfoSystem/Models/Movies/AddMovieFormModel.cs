@@ -23,6 +23,7 @@
         public string Audio { get; set; }
 
         [Required]
+        [StringLength(SummaryMaxLength, MinimumLength = SummaryMinLength)]
         public string Summary { get; set; }
 
         [Required]
@@ -30,7 +31,7 @@
         public TimeSpan Duration { get; set; }
 
         [Required]
-        public ICollection<int> GenreId { get; set; }
+        public ICollection<int?> GenreId { get; set; }
 
         public ICollection<MovieGenreViewModel> Genres { get; set; }
 

@@ -40,24 +40,29 @@
                         @foreach (var genre in Model.Genres)
                         {
                             <option value="@genre.Id">@genre.Type</option>
+
                         }
                     </select>
+                    <span asp-validation-for="GenreId" class="small text-danger"></span>
                 </div>
                 <label asp-for="Actors" class="text-center p-3 h5 float-md-none ">Actors</label>
                 <div id="actors-container">
                 </div>
+                <span asp-validation-for="Actors" class="small text-danger"></span>
                 <div class="btn btn-success" id="add-actor">+</div>
                 <br />
                 <br />
                 <label asp-for="Directors" class="text-center p-3 h5 float-md-none ">Directors</label>
                 <div id="directors-container">
                 </div>
+                <span asp-validation-for="Directors" class="small text-danger"></span>
                 <div class="btn btn-success" id="add-director">+</div>
                 <br />
                 <br />
                 <label asp-for="Countries" class="text-center p-3 h5 float-md-none">Countries</label>
                 <div id="countries-container">
                 </div>
+                <span asp-validation-for="Directors" class="small text-danger"></span>
                 <div class="btn btn-success" id="add-country">+</div>
                 <br />
                 <br />
@@ -77,16 +82,16 @@
         $("#add-actor").click(function (e) {
             e.preventDefault();
             $("#actors-container").append(`<div class="row">
-                                                                <div class="col">
-                                                                    <label>First Name</label>
-                                                                    <input name='Actors[`+ [actorsIndex] + `].FirstName' type='text' class='form-control' placeholder='First name' />
-                                                                </div>
-                                                                <div class="col">
-                                                                   <label>Last Name</label>
-                                                                   <input name='Actors[`+ [actorsIndex] + `].LastName' type='text' class='form-control' placeholder='Last name' />
-                                                                </div>
-                                                            </div>
-                                                               <br /> `);
+                                                                        <div class="col">
+                                                                            <label>First Name</label>
+                                                                            <input name='Actors[`+ [actorsIndex] + `].FirstName' type='text' class='form-control' placeholder='First name' />
+                                                                        </div>
+                                                                        <div class="col">
+                                                                           <label>Last Name</label>
+                                                                           <input name='Actors[`+ [actorsIndex] + `].LastName' type='text' class='form-control' placeholder='Last name' />
+                                                                        </div>
+                                                                    </div>
+                                                                       <br /> `);
 
             actorsIndex++;
         });
@@ -94,16 +99,16 @@
         $("#add-director").click(function (e) {
             e.preventDefault();
             $("#directors-container").append(`<div class="row">
-                                                                  <div class="col">
-                                                                     <label>First Name</label>
-                                                                     <input name='Directors[`+ [directorsIndex] + `].FirstName' type='text' class='form-control' placeholder='First name' />
-                                                                 </div>
-                                                                 <div class="col">
-                                                                    <label>Last Name</label>
-                                                                    <input name='Directors[`+ [directorsIndex] + `].LastName' type='text' class='form-control' placeholder='Last name' />
-                                                                 </div>
-                                                             </div>
-                                                               <br /> `);
+                                                                          <div class="col">
+                                                                             <label>First Name</label>
+                                                                             <input name='Directors[`+ [directorsIndex] + `].FirstName' type='text' class='form-control' placeholder='First name' />
+                                                                         </div>
+                                                                         <div class="col">
+                                                                            <label>Last Name</label>
+                                                                            <input name='Directors[`+ [directorsIndex] + `].LastName' type='text' class='form-control' placeholder='Last name' />
+                                                                         </div>
+                                                                     </div>
+                                                                       <br /> `);
 
             directorsIndex++;
         });
@@ -111,9 +116,9 @@
         $("#add-country").click(function (e) {
             e.preventDefault();
             $("#countries-container").append(`<div class="form-group">
-                                                       <label>Country Name</label>
-                                                       <input name='Countries[`+ [countriesIndex] + `].Name' class='form-control' placeholder='USA, Bulgarian, ect. '>
-                                                  </div> `);
+                                                               <label>Country Name</label>
+                                                               <input name='Countries[`+ [countriesIndex] + `].Name' class='form-control' placeholder='USA, Bulgarian, ect. '>
+                                                          </div> `);
 
             countriesIndex++;
         });

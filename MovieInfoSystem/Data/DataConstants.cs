@@ -10,7 +10,8 @@
         public const int CountryNameMinLength = 3;
 
         public const int GenreTypeMaxLength = 20;
-
+        public const int SummaryMinLength = 50;
+        public const int SummaryMaxLength = 50000;
         public const int AudioMinLength = 2;
         public const int AudioMaxLength = 30;
 

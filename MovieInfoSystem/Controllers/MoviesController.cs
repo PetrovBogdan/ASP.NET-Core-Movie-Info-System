@@ -24,11 +24,14 @@
         [HttpPost]
         public IActionResult Add(AddMovieFormModel movie)
         {
-            foreach (var genreId in movie.GenreId)
+            if (movie.GenreId != null)
             {
-                if (!this.data.Genres.Any(x => x.Id == genreId))
+                foreach (var genreId in movie.GenreId)
                 {
-                    this.ModelState.AddModelError(nameof(movie.GenreId), "The selected genre does not exist!");
+                    if (!this.data.Genres.Any(x => x.Id == genreId))
+                    {
+                        this.ModelState.AddModelError(nameof(movie.GenreId), "The selected genre does not exist!");
+                    }
                 }
             }
 
@@ -53,12 +56,12 @@
 
                 movieData.Genres.Add(new GenreMovie
                 {
-                    GenreId = genreId,
+                    GenreId = genreId.Value,
                     Genre = genre,
                 });
             }
 
-            foreach (var actor in movie.Actors)
+            foreach (var actor in movie.Actors.Where(x => x.FirstName != null && x.LastName != null))
             {
                 var currActor = this.data
                     .Actors
@@ -77,7 +80,7 @@
             }
 
 
-            foreach (var director in movie.Directors)
+            foreach (var director in movie.Directors.Where(x => x.FirstName != null && x.LastName != null))
             {
                 var currDirector = this.data
                     .Directors
@@ -92,10 +95,10 @@
                     };
                 }
 
-                movieData.Directors.Add(new DirectorMovie { Director = currDirector});
+                movieData.Directors.Add(new DirectorMovie { Director = currDirector });
             }
 
-            foreach (var country in movie.Countries)
+            foreach (var country in movie.Countries.Where(x => x.Name != null))
             {
                 var currCountry = this.data
                     .Countries
@@ -116,7 +119,44 @@
 
             this.data.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Movies", "All");
+        }
+
+        public IActionResult All()
+        {
+            var movies = this.data
+                .Movies
+                .OrderByDescending(x => x.Id)
+                .Select(x => new MovieListingViewModel
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Audio = x.Audio,
+                    Image = x.Image,
+                    Summary = x.Summary,
+                    Actors = x.Actors.Select(a => new ActorListingViewModel
+                    {
+                        Id = a.Actor.Id,
+                        FirstName = a.Actor.FirstName,
+                        LastName = a.Actor.LastName,
+
+                    }).ToList(),
+                    Directors = x.Directors.Select(d => new DirectorListingViewModel
+                    {
+                        Id = d.Director.Id,
+                        FirstName = d.Director.FirstName,
+                        LastName = d.Director.LastName,
+                    }).ToList(),
+                    Countries = x.Countries.Select(c => new CountryListingViewModel
+                    {
+                        Id = c.Country.Id,
+                        Name = c.Country.Name
+                    }).ToList()
+
+                })
+                .ToList();
+
+            return View(movies);
         }
 
         private ICollection<MovieGenreViewModel> GetMovieGenres()
@@ -127,6 +167,7 @@
                 Id = x.Id,
                 Type = x.Type,
             })
+            .OrderBy(x => x.Type)
             .ToList();
     }
 }
