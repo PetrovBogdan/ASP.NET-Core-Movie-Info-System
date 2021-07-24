@@ -2,8 +2,6 @@
 
 @{
     ViewBag.Title = "Add Movie";
-
-    var actors = new List<MovieActorViewModel>();
 }
 
 <div class="container">
@@ -14,22 +12,27 @@
                 <div class="form-group">
                     <label asp-for="Title"></label>
                     <input asp-for="Title" class="form-control">
+                    <span asp-validation-for="Title" class="small text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="ImageUrl"></label>
                     <input asp-for="ImageUrl" class="form-control">
+                    <span asp-validation-for="ImageUrl" class="small text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Audio"></label>
                     <input asp-for="Audio" class="form-control" placeholder="English, Bulgarian, ect. ">
+                    <span asp-validation-for="Audio" class="small text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Duration"></label>
                     <input asp-for="Duration" class="form-control" placeholder="hh/mm/ss">
+                    <span asp-validation-for="Duration" class="small text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Summary">Summary</label>
                     <textarea asp-for="Summary" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Summary" class="small text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="GenreId">Genre</label>
@@ -40,39 +43,81 @@
                         }
                     </select>
                 </div>
-                <div>
-                    <h6 class="text-center p-1">Actors</h6>
-                    <div class="row">
-                        <div class="col">
-                            <label></label>
-                            <input type="text" class="form-control" placeholder="First name">
-                        </div>
-                        <div class="col">
-                            <label></label>
-                            <input type="text" class="form-control" placeholder="Last name">
-                        </div>
-                    </div>
-                    <br />
-                    <div>
-                        <h6 class="text-center p-1">Directors</h6>
-                        <div class="row">
-                            <div class="col">
-                                <label></label>
-                                <input type="text" class="form-control" placeholder="First name">
-                            </div>
-                            <div class="col">
-                                <label></label>
-                                <input type="text" class="form-control" placeholder="Last name">
-                            </div>
-                        </div>
-                        <br />
-                        <div class="form-group">
-                            <label>Countries</label>
-                            <input class="form-control" placeholder="USA, Bulgaria, etc.">
-                        </div>
-                        <br />
-                        <button type="submit" class=" btn btn-primary">Save</button>
+                <label asp-for="Actors" class="text-center p-3 h5 float-md-none ">Actors</label>
+                <div id="actors-container">
+                </div>
+                <div class="btn btn-success" id="add-actor">+</div>
+                <br />
+                <br />
+                <label asp-for="Directors" class="text-center p-3 h5 float-md-none ">Directors</label>
+                <div id="directors-container">
+                </div>
+                <div class="btn btn-success" id="add-director">+</div>
+                <br />
+                <br />
+                <label asp-for="Countries" class="text-center p-3 h5 float-md-none">Countries</label>
+                <div id="countries-container">
+                </div>
+                <div class="btn btn-success" id="add-country">+</div>
+                <br />
+                <br />
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
 </div>
+
+@section Scripts{
+
+    <script>
+
+        var actorsIndex = 0;
+        var directorsIndex = 0;
+        var countriesIndex = 0;
+        $("#add-actor").click(function (e) {
+            e.preventDefault();
+            $("#actors-container").append(`<div class="row">
+                                                                <div class="col">
+                                                                    <label>First Name</label>
+                                                                    <input name='Actors[`+ [actorsIndex] + `].FirstName' type='text' class='form-control' placeholder='First name' />
+                                                                </div>
+                                                                <div class="col">
+                                                                   <label>Last Name</label>
+                                                                   <input name='Actors[`+ [actorsIndex] + `].LastName' type='text' class='form-control' placeholder='Last name' />
+                                                                </div>
+                                                            </div>
+                                                               <br /> `);
+
+            actorsIndex++;
+        });
+
+        $("#add-director").click(function (e) {
+            e.preventDefault();
+            $("#directors-container").append(`<div class="row">
+                                                                  <div class="col">
+                                                                     <label>First Name</label>
+                                                                     <input name='Directors[`+ [directorsIndex] + `].FirstName' type='text' class='form-control' placeholder='First name' />
+                                                                 </div>
+                                                                 <div class="col">
+                                                                    <label>Last Name</label>
+                                                                    <input name='Directors[`+ [directorsIndex] + `].LastName' type='text' class='form-control' placeholder='Last name' />
+                                                                 </div>
+                                                             </div>
+                                                               <br /> `);
+
+            directorsIndex++;
+        });
+
+        $("#add-country").click(function (e) {
+            e.preventDefault();
+            $("#countries-container").append(`<div class="form-group">
+                                                       <label>Country Name</label>
+                                                       <input name='Countries[`+ [countriesIndex] + `].Name' class='form-control' placeholder='USA, Bulgarian, ect. '>
+                                                  </div> `);
+
+            countriesIndex++;
+        });
+
+    </script>
+
+}

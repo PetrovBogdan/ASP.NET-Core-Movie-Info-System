@@ -12,6 +12,7 @@
         [MaxLength(CountryNameMaxLength)]
         public string Name { get; set; }
 
-        public IEnumerable<CountryMovie> Movies { get; init; } = new HashSet<CountryMovie>();
+        public ICollection<CountryMovie> Movies { get; init; } = new HashSet<CountryMovie>();
+
     }
 }

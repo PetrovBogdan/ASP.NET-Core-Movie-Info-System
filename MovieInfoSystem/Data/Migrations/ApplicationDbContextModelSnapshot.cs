@@ -482,13 +482,13 @@ namespace MovieInfoSystem.Data.Migrations
                     b.HasOne("MovieInfoSystem.Data.Models.Actor", "Actor")
                         .WithMany("Movies")
                         .HasForeignKey("ActorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MovieInfoSystem.Data.Models.Movie", "Movie")
                         .WithMany("Actors")
                         .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Actor");
@@ -512,13 +512,13 @@ namespace MovieInfoSystem.Data.Migrations
                     b.HasOne("MovieInfoSystem.Data.Models.Country", "Country")
                         .WithMany("Movies")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MovieInfoSystem.Data.Models.Movie", "Movie")
                         .WithMany("Countries")
                         .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Country");
@@ -531,13 +531,13 @@ namespace MovieInfoSystem.Data.Migrations
                     b.HasOne("MovieInfoSystem.Data.Models.Director", "Director")
                         .WithMany("Movies")
                         .HasForeignKey("DirectorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MovieInfoSystem.Data.Models.Movie", "Movie")
                         .WithMany("Directors")
                         .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Director");
@@ -550,13 +550,13 @@ namespace MovieInfoSystem.Data.Migrations
                     b.HasOne("MovieInfoSystem.Data.Models.Genre", "Genre")
                         .WithMany("Movies")
                         .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MovieInfoSystem.Data.Models.Movie", "Movie")
                         .WithMany("Genres")
                         .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Genre");

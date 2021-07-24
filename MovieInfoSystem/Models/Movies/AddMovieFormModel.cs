@@ -1,36 +1,47 @@
 ﻿namespace MovieInfoSystem.Models.Movies
 {
     using System;
+    using System.Configuration;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using static Data.DataConstants;
     public class AddMovieFormModel
     {
+        public int Id { get; set; }
+
         [Required]
         public string Title { get; set; }
 
         [Required]
+        [Url]
         [Display(Name = "Image URL")]
         public string ImageUrl { get; set; }
 
         [Required]
+        [StringLength(AudioMaxLength, MinimumLength = AudioMinLength)]
         public string Audio { get; set; }
 
         [Required]
         public string Summary { get; set; }
 
         [Required]
+        [TimeSpanValidator(MinValueString = "00:01:41", MaxValueString = "21:00:0", ExcludeRange = false)]
         public TimeSpan Duration { get; set; }
 
-        //public ICollection<DirectorMovie> Directors { get; init; } = new HashSet<DirectorMovie>();
         [Required]
         public ICollection<int> GenreId { get; set; }
+
         public ICollection<MovieGenreViewModel> Genres { get; set; }
 
-        //public ICollection<CountryMovie> Countries { get; init; } = new HashSet<CountryMovie>();
-        public MovieActorViewModel Actor { get; set; }
-        public ICollection<MovieActorViewModel> Actors { get; init; }
+        [Required]
+        public ICollection<AddActorFormModel> Actors { get; set; }
 
-        //public ICollection<Comment> Comments { get; init; } = new HashSet<Comment>();
+        [Required]
+        public ICollection<AddDirectorFormModel> Directors { get; set; }
+
+        [Required]
+        public ICollection<AddCountryFormModel> Countries { get; set; }
+
     }
 }
