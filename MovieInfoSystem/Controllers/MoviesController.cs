@@ -52,7 +52,7 @@
 
             foreach (var genreId in movie.GenreId)
             {
-                var genre = this.data.Genres.FirstOrDefault(x => x.Id == genreId);
+                var genre = this.data.Genres.First(x => x.Id == genreId);
 
                 movieData.Genres.Add(new GenreMovie
                 {
@@ -61,7 +61,7 @@
                 });
             }
 
-            foreach (var actor in movie.Actors.Where(x => x.FirstName != null && x.LastName != null))
+            foreach (var actor in movie.Actors.Where(x => x.FirstName != null || x.LastName != null))
             {
                 var currActor = this.data
                     .Actors
@@ -80,7 +80,7 @@
             }
 
 
-            foreach (var director in movie.Directors.Where(x => x.FirstName != null && x.LastName != null))
+            foreach (var director in movie.Directors.Where(x => x.FirstName != null || x.LastName != null))
             {
                 var currDirector = this.data
                     .Directors
@@ -119,14 +119,30 @@
 
             this.data.SaveChanges();
 
-            return RedirectToAction("Movies", "All");
+            return RedirectToAction("All", "Movies");
         }
 
-        public IActionResult All()
+        public IActionResult All(int currentPage, string searchTerm)
         {
-            var movies = this.data
-                .Movies
+            var moviesQuery = this.data.Movies.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                moviesQuery = moviesQuery
+                    .Where(m => m.Title.ToLower().Contains(searchTerm.ToLower()));
+            }
+
+            if (currentPage == 0)
+            {
+                currentPage = 1;
+            }
+
+            var totalMovies = this.data.Movies.Count();
+
+            var movies = moviesQuery
                 .OrderByDescending(x => x.Id)
+                .Skip((currentPage - 1) * AllMoviesViewModel.MoviesPerPage)
+                .Take(AllMoviesViewModel.MoviesPerPage)
                 .Select(x => new MovieListingViewModel
                 {
                     Id = x.Id,
@@ -156,7 +172,12 @@
                 })
                 .ToList();
 
-            return View(movies);
+            return View(new AllMoviesViewModel
+            {
+                TotalMovies = totalMovies,
+                CurrentPage = currentPage,
+                Movies = movies,
+            });
         }
 
         private ICollection<MovieGenreViewModel> GetMovieGenres()
