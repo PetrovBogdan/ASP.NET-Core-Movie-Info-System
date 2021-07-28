@@ -1,5 +1,6 @@
 ﻿namespace MovieInfoSystem.Data
 {
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using MovieInfoSystem.Data.Models;
@@ -21,6 +22,8 @@
         public DbSet<Director> Directors { get; set; }
 
         public DbSet<Genre> Genres { get; set; }
+
+        public DbSet<Author> Authors { get; set; }
 
         public DbSet<ActorMovie> ActorMovie { get; set; }
 
@@ -47,6 +50,17 @@
             builder
                 .Entity<CountryMovie>()
                 .HasKey(x => new { x.CountryId, x.MovieId });
+
+            builder.Entity<Author>()
+                .HasOne<IdentityUser>()
+                .WithOne()
+                .HasForeignKey<Author>(x => x.UserId);
+
+            builder.Entity<Movie>()
+                .HasOne(x => x.Author)
+                .WithMany(x => x.Movies)
+                .HasForeignKey(x => x.AuthorId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
         }

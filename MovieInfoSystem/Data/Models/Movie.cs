@@ -30,6 +30,10 @@
         [Required]
         public TimeSpan Duration { get; set; }
 
+        public int AuthorId { get; set; }
+
+        public Author Author { get; set; }
+
         public ICollection<DirectorMovie> Directors { get; init; } = new HashSet<DirectorMovie>();
 
         public ICollection<GenreMovie> Genres { get; init; } = new HashSet<GenreMovie>();
