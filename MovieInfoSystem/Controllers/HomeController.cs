@@ -25,6 +25,7 @@
             var totalMovies = this.data.Movies.Count();
             var totalActors = this.data.Actors.Count();
             var totalDirectors = this.data.Directors.Count();
+            var totalUsers = this.data.Users.Count();
 
             var movies = this.data
                 .Movies
@@ -43,6 +44,7 @@
                 TotalMovies = totalMovies,
                 TotalActors = totalActors,
                 TotalDirectors = totalDirectors,
+                TotalUsers = totalUsers,
                 Movies = movies,
             });
         }

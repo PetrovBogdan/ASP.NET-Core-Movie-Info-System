@@ -5,8 +5,12 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
+        @if (true)
+        {
+            
+        }
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Creator" asp-action="Create">Become Author!</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Authors" asp-action="Create">Become Author!</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">My account</a>

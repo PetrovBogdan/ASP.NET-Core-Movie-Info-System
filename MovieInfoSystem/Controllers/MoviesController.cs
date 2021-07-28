@@ -5,8 +5,10 @@
 
     using MovieInfoSystem.Data;
     using Microsoft.AspNetCore.Mvc;
-    using MovieInfoSystem.Models.Movies;
     using MovieInfoSystem.Data.Models;
+    using MovieInfoSystem.Models.Movies;
+    using MovieInfoSystem.Infrastructure;
+    using Microsoft.AspNetCore.Authorization;
 
     public class MoviesController : Controller
     {
@@ -15,15 +17,32 @@
         public MoviesController(ApplicationDbContext data)
             => this.data = data;
 
+        [Authorize]
         public IActionResult Add()
-            => View(new AddMovieFormModel
+        {
+
+            if (!this.UserIsAuthor)
+            {
+                return RedirectToAction("Create", "Authors");
+            }
+
+            return View(new AddMovieFormModel
             {
                 Genres = this.GetMovieGenres(),
             });
+        }
+
 
         [HttpPost]
+        [Authorize]
         public IActionResult Add(AddMovieFormModel movie)
         {
+            var authorId = this.data
+                .Authors
+                .Where(x => x.UserId == this.User.GetId())
+                .Select(x => x.Id)
+                .FirstOrDefault();
+
             if (movie.GenreId != null)
             {
                 foreach (var genreId in movie.GenreId)
@@ -48,7 +67,13 @@
                 Duration = movie.Duration,
                 Image = movie.ImageUrl,
                 Audio = movie.Audio,
+                AuthorId = authorId,
             };
+
+            if (authorId == 0)
+            {
+                return RedirectToAction("Create", "Authors");
+            }
 
             foreach (var genreId in movie.GenreId)
             {
@@ -179,6 +204,11 @@
                 Movies = movies,
             });
         }
+
+        private bool UserIsAuthor
+            => this.data
+                .Authors
+                .Any(x => x.UserId == this.User.GetId());
 
         private ICollection<MovieGenreViewModel> GetMovieGenres()
             => data
