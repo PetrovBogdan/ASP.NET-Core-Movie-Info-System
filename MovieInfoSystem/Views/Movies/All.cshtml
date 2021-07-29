@@ -64,7 +64,7 @@ else
                         </li>
                     </ul>
                     <div class="card-body">
-                        <a href="@movie.Id" class="card-link btn btn-primary text-center">Details</a>
+                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id" class="card-link btn btn-primary text-center">Details</a>
                     </div>
                 </div>
             </div>

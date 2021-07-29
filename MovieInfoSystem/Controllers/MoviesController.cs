@@ -205,6 +205,58 @@
             });
         }
 
+        [Authorize]
+        public IActionResult Details(int id)
+        {
+
+            var movie = this.data
+                .Movies
+                .Where(x => x.Id == id)
+                .Select(x => new MovieDetailsViewModel
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Audio = x.Audio,
+                    Image = x.Image,
+                    Summary = x.Summary,
+                    AuthorId = x.AuthorId,
+                    CreatedOn = x.CreatedOn.ToString("dddd, dd MMMM yyyy"),
+                    Duration = x.Duration,
+                    Genres = x.Genres.Select(g => new MovieGenreViewModel
+                    {
+                        Id = g.Genre.Id,
+                        Type = g.Genre.Type,
+
+                    }).ToList(),
+                    Actors = x.Actors.Select(a => new ActorListingViewModel
+                    {
+                        Id = a.Actor.Id,
+                        FirstName = a.Actor.FirstName,
+                        LastName = a.Actor.LastName,
+                    }).ToList(),
+                    Directors = x.Directors.Select(d => new DirectorListingViewModel
+                    {
+                        Id = d.Director.Id,
+                        FirstName = d.Director.FirstName,
+                        LastName = d.Director.LastName,
+                    }).ToList(),
+                    Countries = x.Countries.Select(c => new CountryListingViewModel
+                    {
+                        Id = c.Country.Id,
+                        Name = c.Country.Name,
+                    }).ToList()
+                })
+                .FirstOrDefault();
+
+            if (movie == null)
+            {
+                return BadRequest();
+            }
+
+            return View(movie);
+        }
+
+
         private bool UserIsAuthor
             => this.data
                 .Authors

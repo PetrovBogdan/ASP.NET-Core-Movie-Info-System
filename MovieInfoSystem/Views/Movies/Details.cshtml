@@ -1,0 +1,107 @@
+﻿@model MovieDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+
+    var actors = Model.Actors.Select(x => x.FirstName + " " + x.LastName);
+    var directors = Model.Directors.Select(x => x.FirstName + " " + x.LastName);
+    var countries = Model.Countries.Select(x => x.Name);
+    var genres = Model.Genres.Select(x => x.Type);
+}
+
+<div class="container emp-profile">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-img">
+                <img height="290" width="200" src="@Model.Image" alt="Card image cap">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="profile-head">
+                <h5>
+                    @Model.Title
+                </h5>
+                <label asp-for="@Model.Genres"></label>
+                <h6>
+                    @string.Join(", ", genres)
+                </h6>
+                <p class="proile-rating">Added on the movie info system on <span>@Model.CreatedOn</span></p>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Summary</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <input type="submit" class="profile-edit-btn" value="Edit Movie" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-work">
+                <br />
+                <a href="">Actors</a><br />
+                <br />
+                <a href="">Directors</a><br />
+                <br />
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row pt-4">
+                        <div class="col-md-4">
+                            <label>Actors:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>@string.Join(", ", actors)</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Directors: </label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>@string.Join(", ", directors)</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Countries: </label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>@string.Join(", ", countries)</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Duration: </label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>@Model.Duration minutes</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Audio: </label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>@Model.Audio</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="row pt-4">
+                        <div class="col-md-10">
+                            <p>@Model.Summary</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

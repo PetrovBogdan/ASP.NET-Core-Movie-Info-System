@@ -12,10 +12,6 @@
         [Required]
         public string Title { get; set; }
 
-        public int Likes { get; set; }
-
-        public int Dislikes { get; set; }
-
         [Required]
         public string Image { get; set; }
 
@@ -28,7 +24,7 @@
         public string Summary { get; set; }
 
         [Required]
-        public TimeSpan Duration { get; set; }
+        public string Duration { get; set; }
 
         public int AuthorId { get; set; }
 

@@ -1,7 +1,5 @@
 ﻿namespace MovieInfoSystem.Models.Movies
 {
-    using System;
-    using System.Configuration;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
@@ -27,8 +25,8 @@
         public string Summary { get; set; }
 
         [Required]
-        [TimeSpanValidator(MinValueString = "00:01:41", MaxValueString = "21:00:0", ExcludeRange = false)]
-        public TimeSpan Duration { get; set; }
+        [Display(Name ="Duration in minutes")]
+        public string Duration { get; set; }
 
         [Required]
         public ICollection<int?> GenreId { get; set; }
