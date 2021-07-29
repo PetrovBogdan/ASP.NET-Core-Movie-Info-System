@@ -14,11 +14,11 @@
 
         public string Summary { get; set; }
 
-        public ICollection<ActorListingViewModel> Actors { get; init; }
+        public ICollection<MovieActorsViewModel> Actors { get; init; }
 
-        public ICollection<DirectorListingViewModel> Directors { get; init; }
+        public ICollection<MovieDirectorsViewModel> Directors { get; init; }
 
-        public ICollection<CountryListingViewModel> Countries { get; init; }
+        public ICollection<MovieCountriesViewMOdel> Countries { get; init; }
 
 
     }

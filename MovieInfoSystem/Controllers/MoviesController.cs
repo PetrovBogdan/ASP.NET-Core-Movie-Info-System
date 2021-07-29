@@ -175,20 +175,20 @@
                     Audio = x.Audio,
                     Image = x.Image,
                     Summary = x.Summary,
-                    Actors = x.Actors.Select(a => new ActorListingViewModel
+                    Actors = x.Actors.Select(a => new MovieActorsViewModel
                     {
                         Id = a.Actor.Id,
                         FirstName = a.Actor.FirstName,
                         LastName = a.Actor.LastName,
 
                     }).ToList(),
-                    Directors = x.Directors.Select(d => new DirectorListingViewModel
+                    Directors = x.Directors.Select(d => new MovieDirectorsViewModel
                     {
                         Id = d.Director.Id,
                         FirstName = d.Director.FirstName,
                         LastName = d.Director.LastName,
                     }).ToList(),
-                    Countries = x.Countries.Select(c => new CountryListingViewModel
+                    Countries = x.Countries.Select(c => new MovieCountriesViewMOdel
                     {
                         Id = c.Country.Id,
                         Name = c.Country.Name
@@ -228,19 +228,19 @@
                         Type = g.Genre.Type,
 
                     }).ToList(),
-                    Actors = x.Actors.Select(a => new ActorListingViewModel
+                    Actors = x.Actors.Select(a => new MovieActorsViewModel
                     {
                         Id = a.Actor.Id,
                         FirstName = a.Actor.FirstName,
                         LastName = a.Actor.LastName,
                     }).ToList(),
-                    Directors = x.Directors.Select(d => new DirectorListingViewModel
+                    Directors = x.Directors.Select(d => new MovieDirectorsViewModel
                     {
                         Id = d.Director.Id,
                         FirstName = d.Director.FirstName,
                         LastName = d.Director.LastName,
                     }).ToList(),
-                    Countries = x.Countries.Select(c => new CountryListingViewModel
+                    Countries = x.Countries.Select(c => new MovieCountriesViewMOdel
                     {
                         Id = c.Country.Id,
                         Name = c.Country.Name,

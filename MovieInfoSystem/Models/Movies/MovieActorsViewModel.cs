@@ -1,6 +1,6 @@
 ﻿namespace MovieInfoSystem.Models.Movies
 {
-    public class ActorListingViewModel
+    public class MovieActorsViewModel
     {
         public int Id { get; init; }
 

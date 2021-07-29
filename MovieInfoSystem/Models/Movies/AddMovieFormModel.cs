@@ -25,7 +25,7 @@
         public string Summary { get; set; }
 
         [Required]
-        [Display(Name ="Duration in minutes")]
+        [Display(Name = "Duration in minutes")]
         public string Duration { get; set; }
 
         [Required]

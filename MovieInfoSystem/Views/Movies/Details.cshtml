@@ -21,11 +21,11 @@
                 <h5>
                     @Model.Title
                 </h5>
+                <p class="proile-rating">Added to the movie info system on <span>@Model.CreatedOn</span></p>
                 <label asp-for="@Model.Genres"></label>
-                <h6>
+                <h6 class="pb-5">
                     @string.Join(", ", genres)
                 </h6>
-                <p class="proile-rating">Added on the movie info system on <span>@Model.CreatedOn</span></p>
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>

@@ -1,6 +1,6 @@
 ﻿namespace MovieInfoSystem.Models.Movies
 {
-    public class CountryListingViewModel
+    public class MovieCountriesViewMOdel
     {
         public int Id { get; set; }
 

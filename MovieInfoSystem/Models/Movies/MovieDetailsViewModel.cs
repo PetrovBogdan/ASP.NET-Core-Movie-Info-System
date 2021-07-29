@@ -1,6 +1,7 @@
 ﻿namespace MovieInfoSystem.Models.Movies
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     public class MovieDetailsViewModel
     {
@@ -20,13 +21,14 @@
 
         public int AuthorId { get; set; }
 
-        public ICollection<DirectorListingViewModel> Directors { get; init; }
+        public ICollection<MovieDirectorsViewModel> Directors { get; init; }
 
+        [Display(Name ="Genre")]
         public ICollection<MovieGenreViewModel> Genres { get; init; } 
 
-        public ICollection<CountryListingViewModel> Countries { get; init; } 
+        public ICollection<MovieCountriesViewMOdel> Countries { get; init; } 
 
-        public ICollection<ActorListingViewModel> Actors { get; init; }
+        public ICollection<MovieActorsViewModel> Actors { get; init; }
 
         //public ICollection<Comment> Comments { get; init; } = new HashSet<Comment>();
     }
