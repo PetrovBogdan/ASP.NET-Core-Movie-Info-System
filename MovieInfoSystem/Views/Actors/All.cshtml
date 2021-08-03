@@ -1,66 +1,72 @@
-﻿@model List<ActorsListingViewModel>
+﻿@model AllActorsViewModel
 
 @{
     ViewBag.Title = "All Actors";
 
+    var previousPage = Model.CurrentPage - 1;
+
+    if (previousPage < 1)
+    {
+        previousPage = 1;
+    }
+
+    var maxPage = Math.Ceiling((double)Model.TotalActors / AllActorsViewModel.ActorsPerPage);
+
 }
 
-@*<label class="small font-weight-bold font-italic" asp-for="SearchTerm"></label>
+<label class="small font-weight-bold font-italic" asp-for="SearchTerm"></label>
 <form class="form-inline" method="get">
     <input asp-for="SearchTerm" class="form-control mr-sm-2" type="search" placeholder="Search term" aria-label="Search">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-</form>*@
-@*@if (!Model.Movies.Any())
+</form>
+
+@if (!Model.Actors.Any() && string.IsNullOrWhiteSpace(Model.SearchTerm))
 {
     <div class="jumbotron">
         <h1 class=" text-center display-4">Hello, to the Movie info system!</h1>
         <br />
-        <p class="text-center lead">There are no movies currently in the system, why don't you just add one ?</p>
+        <p class="text-center lead">There are no actors currently in the system, why don't you just add a movie with actors ?</p>
         <br />
         <br />
         <p class=" text-center lead">
             <a class="btn btn-primary btn-lg" asp-controller="Movies" asp-action="Add" role="button">Add movie</a>
         </p>
     </div>
-}*@
-@*else
-{*@
+}
+else
+{
     <div class="row">
-        @foreach (var actor in Model)
+        @foreach (var actor in Model.Actors)
         {
             <div class="p-lg-2">
                 <div class="card" style="width: 16rem; padding:7px;">
                     <img class="card-img-top" src="@actor.Picture" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">@actor.FirstName @actor.LastName</h5>
-                        <p class="card-text">@actor.Biography</p>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <span class="font-weight-bold">Actors:</span>
-                            <span>
-                            </span>
-                        </li>
-                        <li class="list-group-item">
-                            <span class="font-weight-bold">Directors:</span>
-                            <span>
-                            </span>
-                        </li>
-                        <li class="list-group-item">
-                            <span class="font-weight-bold">Countries:</span>
-                            <span>
-                            </span>
-                        </li>
-                    </ul>
                     <div class="card-body">
-                        <a asp-controller="Movies" asp-action="Details" asp-route-id="" class="card-link btn btn-primary text-center">Details</a>
+                        <a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id" class="card-link btn btn-primary text-center">Details</a>
                     </div>
                 </div>
             </div>
         }
     </div>
+}
 
 
-@*}*@
+<div class="w3-clear nextprev text-center">
+    <a class="w3-left btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty) "
+       asp-controller="Actors"
+       asp-action="All"
+       asp-route-currentPage="@previousPage">
+        ❮ Previous page
+    </a>
+    <a class="w3-right btn btn-primary @(Model.CurrentPage == maxPage ? "disabled" : string.Empty)"
+       asp-controller="Actors"
+       asp-action="All"
+       asp-route-currentPage="@(Model.CurrentPage + 1)">
+        Next page ❯
+    </a>
+</div>
 
 

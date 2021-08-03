@@ -1,0 +1,31 @@
+﻿@model AddActorDetailsFormModel
+
+@{
+    ViewBag.Title = "Add details";
+}
+
+<div class="container">
+    <div class="row">
+        <div class=" col-md-6 col-sm-12 offset-md-2">
+            <form method="post">
+                <h2 class="text-center p-3">Add details</h2>
+                <div class="form-group">
+                    <label asp-for="CountryName"></label>
+                    <input asp-for="CountryName" class="form-control">
+                    <span asp-validation-for="CountryName" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Picture"></label>
+                    <input asp-for="Picture" class="form-control">
+                    <span asp-validation-for="Picture" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Biography"></label>
+                    <textarea asp-for="Biography" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Biography" class="small text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

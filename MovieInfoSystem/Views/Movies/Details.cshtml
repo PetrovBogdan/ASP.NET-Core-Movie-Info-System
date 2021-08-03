@@ -1,7 +1,7 @@
 ﻿@model MovieDetailsViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Movie details";
 
     var actors = Model.Actors.Select(x => x.FirstName + " " + x.LastName);
     var directors = Model.Directors.Select(x => x.FirstName + " " + x.LastName);

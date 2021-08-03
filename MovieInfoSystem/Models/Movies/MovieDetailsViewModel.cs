@@ -30,6 +30,7 @@
 
         public ICollection<MovieActorsViewModel> Actors { get; init; }
 
+        //TODO: Add functionallity for adding comments to the movie. 
         //public ICollection<Comment> Comments { get; init; } = new HashSet<Comment>();
     }
 }

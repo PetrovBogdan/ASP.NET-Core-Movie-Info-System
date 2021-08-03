@@ -201,6 +201,7 @@
             {
                 TotalMovies = totalMovies,
                 CurrentPage = currentPage,
+                SearchTerm = searchTerm,
                 Movies = movies,
             });
         }
