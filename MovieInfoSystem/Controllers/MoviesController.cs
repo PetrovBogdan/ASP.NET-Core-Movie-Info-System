@@ -8,21 +8,26 @@
     using MovieInfoSystem.Data.Models;
     using MovieInfoSystem.Models.Movies;
     using MovieInfoSystem.Infrastructure;
-    using Microsoft.AspNetCore.Authorization;
     using MovieInfoSystem.Services.Authors;
+    using Microsoft.AspNetCore.Authorization;
 
     public class MoviesController : Controller
     {
         private readonly ApplicationDbContext data;
+        private readonly IAuthorService authorService;
 
-        public MoviesController(ApplicationDbContext data)
-            => this.data = data;
+        public MoviesController(ApplicationDbContext data, IAuthorService authorService)
+        {
+            this.authorService = authorService;
+            this.data = data;
+        }
 
         [Authorize]
         public IActionResult Add()
         {
+            var userId = this.User.GetId();
 
-            if (!this.UserIsAuthor)
+            if (!authorService.IsAuthor(userId))
             {
                 return RedirectToAction("Create", "Authors");
             }
@@ -260,12 +265,12 @@
             return View(movie);
         }
 
-
-        private bool UserIsAuthor
-            => this.data
-                .Authors
-                .Any(x => x.UserId == this.User.GetId());
-
+        //TODO: Implement logic for rendering current user movies.
+        [Authorize]
+        public IActionResult Mine(string userId)
+        {
+            return View();
+        }
         private ICollection<MovieGenreViewModel> GetMovieGenres()
             => data
             .Genres

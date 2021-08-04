@@ -5,17 +5,17 @@
     using MovieInfoSystem.Data;
     using Microsoft.AspNetCore.Mvc;
     using MovieInfoSystem.Data.Models;
-    using MovieInfoSystem.Models.Actors;
     using MovieInfoSystem.Infrastructure;
     using MovieInfoSystem.Services.Authors;
+    using MovieInfoSystem.Models.Directors;
     using Microsoft.AspNetCore.Authorization;
 
-    public class ActorsController : Controller
+    public class DirectorsController: Controller
     {
         private readonly ApplicationDbContext data;
         private readonly IAuthorService authorService;
 
-        public ActorsController(ApplicationDbContext data, IAuthorService authorService)
+        public DirectorsController(ApplicationDbContext data, IAuthorService authorService)
         {
             this.data = data;
             this.authorService = authorService;
@@ -23,11 +23,11 @@
 
         public IActionResult All(int currentPage, string searchTerm)
         {
-            var actorsQuery = this.data.Actors.AsQueryable();
+            var directorsQuery = this.data.Directors.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                actorsQuery = actorsQuery
+                directorsQuery = directorsQuery
                    .Where(x => x.FirstName.ToLower().Contains(searchTerm.ToLower()) ||
                            x.LastName.ToLower().Contains(searchTerm.ToLower()));
             }
@@ -37,13 +37,13 @@
                 currentPage = 1;
             }
 
-            var totalActors = this.data.Actors.Count();
+            var totalDirectors = this.data.Directors.Count();
 
-            var actors = actorsQuery
+            var directors = directorsQuery
                 .OrderByDescending(x => x.Id)
-                .Skip((currentPage - 1) * AllActorsViewModel.ActorsPerPage)
-                .Take(AllActorsViewModel.ActorsPerPage)
-                .Select(x => new ActorsListingViewModel
+                .Skip((currentPage - 1) * AllDirectorsViewModel.DirectorsPerPage)
+                .Take(AllDirectorsViewModel.DirectorsPerPage)
+                .Select(x => new DirectorsListingViewModel
                 {
                     Id = x.Id,
                     FirstName = x.FirstName,
@@ -56,22 +56,22 @@
                                 .ToList()
                 }).ToList();
 
-            return View(new AllActorsViewModel
+            return View(new AllDirectorsViewModel
             {
-                TotalActors = totalActors,
+                TotalDirectors = totalDirectors,
                 CurrentPage = currentPage,
                 SearchTerm = searchTerm,
-                Actors = actors,
+                Directors = directors,
             });
         }
 
         [Authorize]
         public IActionResult Details(int id)
         {
-            var actor = this.data
-                .Actors
+            var director = this.data
+                .Directors
                 .Where(x => x.Id == id)
-                .Select(x => new ActorDetailsViewModel
+                .Select(x => new DirectorDetailsViewModel
                 {
                     Id = x.Id,
                     FirstName = x.FirstName,
@@ -83,7 +83,7 @@
                 })
                 .FirstOrDefault();
 
-            return View(actor);
+            return View(director);
         }
 
         [Authorize]
@@ -98,28 +98,28 @@
 
             return View();
         }
-            
+
         [HttpPost]
         [Authorize]
-        public IActionResult AddDetails(AddActorDetailsFormModel details, int id)
+        public IActionResult AddDetails(AddDirectorDetailsFormModel details, int id)
         {
             if (!this.ModelState.IsValid)
             {
                 return View();
             }
 
-            var actor = this.data
-                .Actors
+            var director = this.data
+                .Directors
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
 
-            if (actor == null)
+            if (director == null)
             {
                 return BadRequest();
             }
 
-            actor.Biography = details.Biography;
-            actor.Picture = details.Picture;
+            director.Biography = details.Biography;
+            director.Picture = details.Picture;
 
             var country = this.data
                 .Countries
@@ -134,12 +134,11 @@
                 };
             }
 
-            actor.Country = country;
+            director.Country = country;
 
             this.data.SaveChanges();
 
-            return RedirectToAction("All","Actors");
+            return RedirectToAction("All", "Directors");
         }
-
     }
 }

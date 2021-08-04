@@ -14,7 +14,7 @@
         @if (userIsAuthor)
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Movies" asp-action="Mine">My Movies</a>
+                <a class="nav-link text-dark" asp-route-userId="@userId" asp-controller="Movies" asp-action="Mine">My Movies</a>
             </li>
         }
         else

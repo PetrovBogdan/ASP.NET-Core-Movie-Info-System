@@ -1,21 +1,23 @@
 ﻿namespace MovieInfoSystem.Controllers
 {
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
     using MovieInfoSystem.Data;
+    using Microsoft.AspNetCore.Mvc;
     using MovieInfoSystem.Data.Models;
-    using MovieInfoSystem.Infrastructure;
     using MovieInfoSystem.Models.Authors;
+    using MovieInfoSystem.Infrastructure;
     using MovieInfoSystem.Services.Authors;
-    using System.Linq;
+    using Microsoft.AspNetCore.Authorization;
 
     public class AuthorsController: Controller
     {
         private readonly ApplicationDbContext data;
         private readonly IAuthorService authorService;
 
-        public AuthorsController(ApplicationDbContext data)
-            => this.data = data;
+        public AuthorsController(ApplicationDbContext data, IAuthorService authorService)
+        {
+            this.data = data;
+            this.authorService = authorService;
+        }
 
         [Authorize]
         public IActionResult Create ()
