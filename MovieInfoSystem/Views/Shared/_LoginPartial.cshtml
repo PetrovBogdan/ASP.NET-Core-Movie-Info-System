@@ -14,21 +14,21 @@
         @if (userIsAuthor)
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-route-userId="@userId" asp-controller="Movies" asp-action="Mine">My Movies</a>
+                <a class="nav-link text-dark font-italic" asp-route-userId="@userId" asp-controller="Movies" asp-action="Mine">My Movies</a>
             </li>
         }
         else
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Authors" asp-action="Create">Become Author!</a>
+                <a class="nav-link text-dark font-italic" asp-area="" asp-controller="Authors" asp-action="Create">Become Author!</a>
             </li>
         }
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">My account</a>
+            <a class="nav-link text-dark font-italic" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">My account</a>
         </li>
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                <button type="submit" class="nav-link btn btn-link font-italic text-dark">Logout</button>
             </form>
         </li>
     }
