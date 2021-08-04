@@ -4,10 +4,10 @@
 
     using MovieInfoSystem.Data;
     using Microsoft.AspNetCore.Mvc;
-    using MovieInfoSystem.Models.Actors;
-    using Microsoft.AspNetCore.Authorization;
-    using MovieInfoSystem.Infrastructure;
     using MovieInfoSystem.Data.Models;
+    using MovieInfoSystem.Models.Actors;
+    using MovieInfoSystem.Infrastructure;
+    using Microsoft.AspNetCore.Authorization;
 
     public class ActorsController : Controller
     {
@@ -102,6 +102,7 @@
             {
                 return View();
             }
+
             var actor = this.data
                 .Actors
                 .Where(x => x.Id == id)

@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="col-md-2">
-            <input type="submit" class="profile-edit-btn" value="Edit Movie" />
+            <input type="submit" class="profile-edit-btn" value="Edit Actor" />
         </div>
     </div>
     <div class="row">
@@ -66,8 +66,14 @@
         </div>
     </div>
 </div>
-<div class="text-center mt-5">
-    <form method="get">
-        <button asp-controller="Actors" asp-action="AddDetails" asp-route-id="@Model.Id" type="submit" class="btn btn-primary text-center">Add details</button>
-    </form>
-</div>
+@if (string.IsNullOrWhiteSpace(Model.Country) ||
+  string.IsNullOrWhiteSpace(Model.Biography) ||
+  string.IsNullOrWhiteSpace(Model.Picture))
+{
+    <div class="text-center mt-5">
+        <form method="get">
+            <button asp-controller="Actors" asp-action="AddDetails" asp-route-id="@Model.Id" type="submit" class="btn btn-primary text-center">Add details</button>
+        </form>
+    </div>
+}
+

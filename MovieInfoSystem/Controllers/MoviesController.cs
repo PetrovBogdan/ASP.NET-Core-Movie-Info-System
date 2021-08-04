@@ -9,6 +9,7 @@
     using MovieInfoSystem.Models.Movies;
     using MovieInfoSystem.Infrastructure;
     using Microsoft.AspNetCore.Authorization;
+    using MovieInfoSystem.Services.Authors;
 
     public class MoviesController : Controller
     {
@@ -68,6 +69,7 @@
                 Image = movie.ImageUrl,
                 Audio = movie.Audio,
                 AuthorId = authorId,
+                Creator = this.User.GetId(),
             };
 
             if (authorId == 0)
@@ -223,6 +225,7 @@
                     AuthorId = x.AuthorId,
                     CreatedOn = x.CreatedOn.ToString("dddd, dd MMMM yyyy"),
                     Duration = x.Duration,
+                    IsCreator = x.Creator == this.User.GetId(),
                     Genres = x.Genres.Select(g => new MovieGenreViewModel
                     {
                         Id = g.Genre.Id,

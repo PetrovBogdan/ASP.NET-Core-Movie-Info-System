@@ -21,6 +21,8 @@
 
         public int AuthorId { get; set; }
 
+        public bool IsCreator { get; set; }
+
         public ICollection<MovieDirectorsViewModel> Directors { get; init; }
 
         [Display(Name ="Genre")]

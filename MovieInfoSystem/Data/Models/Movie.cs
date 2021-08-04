@@ -30,6 +30,8 @@
 
         public Author Author { get; set; }
 
+        public string Creator { get; set; }
+
         public ICollection<DirectorMovie> Directors { get; init; } = new HashSet<DirectorMovie>();
 
         public ICollection<GenreMovie> Genres { get; init; } = new HashSet<GenreMovie>();

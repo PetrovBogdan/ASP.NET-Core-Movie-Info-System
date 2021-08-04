@@ -6,11 +6,13 @@
     using MovieInfoSystem.Data.Models;
     using MovieInfoSystem.Infrastructure;
     using MovieInfoSystem.Models.Authors;
+    using MovieInfoSystem.Services.Authors;
     using System.Linq;
 
     public class AuthorsController: Controller
     {
         private readonly ApplicationDbContext data;
+        private readonly IAuthorService authorService;
 
         public AuthorsController(ApplicationDbContext data)
             => this.data = data;
@@ -23,11 +25,8 @@
         [HttpPost]
         public IActionResult Create(BecomeAuthorFormModel author)
         {
-            var userIsAlreadyAuthor = this.data
-                .Authors
-                .Any(x => x.UserId == User.GetId());
 
-            if (userIsAlreadyAuthor)
+            if (this.authorService.IsAuthor(this.User.GetId()))
             {
                 return BadRequest();
             }

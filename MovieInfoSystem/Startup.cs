@@ -3,12 +3,14 @@ namespace MovieInfoSystem
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using MovieInfoSystem.Data;
     using MovieInfoSystem.Infrastructure;
+    using MovieInfoSystem.Services.Authors;
 
     public class Startup
     {
@@ -35,11 +37,13 @@ namespace MovieInfoSystem
              .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddControllersWithViews();
+
+            services.AddTransient<IAuthorService, AuthorService>();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.PrepareDatabase();
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
