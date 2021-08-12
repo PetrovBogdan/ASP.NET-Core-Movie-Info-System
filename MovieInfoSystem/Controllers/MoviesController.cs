@@ -265,11 +265,43 @@
             return View(movie);
         }
 
-        //TODO: Implement logic for rendering current user movies.
         [Authorize]
         public IActionResult Mine(string userId)
         {
-            return View();
+            var movies = this.data
+                .Movies
+                .Where(x => x.Creator == userId)
+                 .Select(x => new MovieListingViewModel
+                 {
+                     Id = x.Id,
+                     Title = x.Title,
+                     Audio = x.Audio,
+                     Image = x.Image,
+                     Summary = x.Summary,
+                     Actors = x.Actors.Select(a => new MovieActorsViewModel
+                     {
+                         Id = a.Actor.Id,
+                         FirstName = a.Actor.FirstName,
+                         LastName = a.Actor.LastName,
+
+                     }).ToList(),
+                     Directors = x.Directors.Select(d => new MovieDirectorsViewModel
+                     {
+                         Id = d.Director.Id,
+                         FirstName = d.Director.FirstName,
+                         LastName = d.Director.LastName,
+                     }).ToList(),
+                     Countries = x.Countries.Select(c => new MovieCountriesViewMOdel
+                     {
+                         Id = c.Country.Id,
+                         Name = c.Country.Name
+                     }).ToList()
+
+                 })
+                .ToList();
+
+
+            return View(movies);
         }
         private ICollection<MovieGenreViewModel> GetMovieGenres()
             => data
