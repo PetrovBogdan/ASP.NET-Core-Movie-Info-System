@@ -1,4 +1,4 @@
-﻿@model AddMovieFormModel
+﻿@model MovieFormModel
 
 @{
     ViewBag.Title = "Add Movie";
@@ -9,31 +9,7 @@
         <div class=" col-md-6 col-sm-12 offset-md-2">
             <form method="post">
                 <h2 class="text-center p-3">Add Movie</h2>
-                <div class="form-group">
-                    <label asp-for="Title"></label>
-                    <input asp-for="Title" class="form-control">
-                    <span asp-validation-for="Title" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ImageUrl"></label>
-                    <input asp-for="ImageUrl" class="form-control">
-                    <span asp-validation-for="ImageUrl" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Audio"></label>
-                    <input asp-for="Audio" class="form-control" placeholder="English, Bulgarian, ect. ">
-                    <span asp-validation-for="Audio" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Duration"></label>
-                    <input asp-for="Duration" class="form-control" placeholder="123">
-                    <span asp-validation-for="Duration" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Summary">Summary</label>
-                    <textarea asp-for="Summary" class="form-control" rows="3"></textarea>
-                    <span asp-validation-for="Summary" class="small text-danger"></span>
-                </div>
+                <partial name="_AddDetailsPartial" model="@Model" />
                 <div class="form-group">
                     <label asp-for="GenreId">Genre</label>
                     <select asp-for="GenreId" class="form-control" multiple>
@@ -43,29 +19,9 @@
 
                         }
                     </select>
-                    <span asp-validation-for="GenreId" class="small text-danger"></span>
+                    <span asp-validation-for="GenreId" class="small text-danger mt-2"></span>
                 </div>
-                <label asp-for="Actors" class="text-center p-3 h5 float-md-none ">Actors</label>
-                <div id="actors-container">
-                </div>
-                <span asp-validation-for="Actors" class="small text-danger"></span>
-                <div class="btn btn-success" id="add-actor">+</div>
-                <br />
-                <br />
-                <label asp-for="Directors" class="text-center p-3 h5 float-md-none ">Directors</label>
-                <div id="directors-container">
-                </div>
-                <span asp-validation-for="Directors" class="small text-danger"></span>
-                <div class="btn btn-success" id="add-director">+</div>
-                <br />
-                <br />
-                <label asp-for="Countries" class="text-center p-3 h5 float-md-none">Countries</label>
-                <div id="countries-container">
-                </div>
-                <span asp-validation-for="Directors" class="small text-danger"></span>
-                <div class="btn btn-success" id="add-country">+</div>
-                <br />
-                <br />
+                <partial name="_AddActorsDirectorsAndCountriesPartial" model="@Model" />
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
@@ -73,56 +29,7 @@
 </div>
 
 @section Scripts{
-
-    <script>
-
-        var actorsIndex = 0;
-        var directorsIndex = 0;
-        var countriesIndex = 0;
-        $("#add-actor").click(function (e) {
-            e.preventDefault();
-            $("#actors-container").append(`<div class="row">
-                                                <div class="col">
-                                                    <label>First Name</label>
-                                                    <input name='Actors[`+ [actorsIndex] + `].FirstName' type='text' class='form-control' placeholder='First name' />
-                                                </div>
-                                                <div class="col">
-                                                   <label>Last Name</label>
-                                                   <input name='Actors[`+ [actorsIndex] + `].LastName' type='text' class='form-control' placeholder='Last name' />
-                                                </div>
-                                            </div>
-                                            <br /> `);
-
-            actorsIndex++;
-        });
-
-        $("#add-director").click(function (e) {
-            e.preventDefault();
-            $("#directors-container").append(`<div class="row">
-                                                   <div class="col">
-                                                      <label>First Name</label>
-                                                      <input name='Directors[`+ [directorsIndex] + `].FirstName' type='text' class='form-control' placeholder='First name' />
-                                                  </div>
-                                                  <div class="col">
-                                                     <label>Last Name</label>
-                                                     <input name='Directors[`+ [directorsIndex] + `].LastName' type='text' class='form-control' placeholder='Last name' />
-                                                  </div>
-                                              </div>
-                                              <br /> `);
-
-            directorsIndex++;
-        });
-
-        $("#add-country").click(function (e) {
-            e.preventDefault();
-            $("#countries-container").append(`<div class="form-group">
-                                                   <label>Country Name</label>
-                                                   <input name='Countries[`+ [countriesIndex] + `].Name' class='form-control' placeholder='USA, Bulgarian, ect. '>
-                                              </div> `);
-
-            countriesIndex++;
-        });
-
-    </script>
-
+    <script src="~/js/AddActors.js"></script>
+    <script src="~/js/AddDirectors.js"></script>
+    <script src="~/js/AddCountries.js"></script>
 }

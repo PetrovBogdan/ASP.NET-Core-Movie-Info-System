@@ -1,0 +1,96 @@
+﻿@model MovieFormModel
+
+@{
+    ViewBag.Title = "Edit Movie";
+}
+
+<div class="container">
+    <div class="row">
+        <div class=" col-md-6 col-sm-12 offset-md-2">
+            <form method="post">
+                <h2 class="text-center p-3">Edit Movie</h2>
+                <partial name="_AddDetailsPartial" model="@Model" ? />
+                <div class="form-group">
+                    <ul>
+                        <li>
+                            Genres
+                            <ul>
+                                @foreach (var genre in Model.Genres)
+                                {
+                                    <li>@genre.Type</li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <ul>
+                        <li>
+                            Actors
+                            <ul>
+                                @foreach (var actor in Model.Actors)
+                                {
+                                    <li>@actor.FirstName @actor.LastName</li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <ul>
+                        <li>
+                            Directors
+                            <ul>
+                                @foreach (var director in Model.Directors)
+                                {
+                                    <li>@director.FirstName @director.LastName</li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <ul>
+                        <li>
+                            Countries
+                            <ul>
+                                @foreach (var country in Model.Countries)
+                                {
+                                    <li>@country.Name</li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div id="more-details-view">
+                    <partial name="_AddActorsDirectorsAndCountriesPartial" model="@Model" />
+                </div>
+                <button id="add-more-details" class="btn btn-success">Add more details</button>
+                <button type="submit" class="btn btn-primary">Commit changes</button>
+                <button class="btn btn-danger">Delete movie</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/AddActors.js"></script>
+    <script src="~/js/AddDirectors.js"></script>
+    <script src="~/js/AddCountries.js"></script>
+
+    <script>
+        let partialViewDivElement = document.getElementById('more-details-view');
+
+        partialViewDivElement.style.display = "none";
+
+        let addMoreDetailsButtonEelement = document.getElementById('add-more-details');
+
+        addMoreDetailsButtonEelement.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            partialViewDivElement.style.display = "block";
+            addMoreDetailsButtonEelement.style.display = "none";
+        })
+
+    </script>
+} 

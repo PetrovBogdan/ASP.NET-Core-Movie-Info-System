@@ -32,16 +32,15 @@
                 return RedirectToAction("Create", "Authors");
             }
 
-            return View(new AddMovieFormModel
+            return View(new MovieFormModel
             {
                 Genres = this.GetMovieGenres(),
             });
         }
 
-
         [HttpPost]
         [Authorize]
-        public IActionResult Add(AddMovieFormModel movie)
+        public IActionResult Add(MovieFormModel movie)
         {
             var authorId = this.data
                 .Authors
@@ -55,9 +54,32 @@
                 {
                     if (!this.data.Genres.Any(x => x.Id == genreId))
                     {
-                        this.ModelState.AddModelError(nameof(movie.GenreId), "The selected genre does not exist!");
+                        this.ModelState.AddModelError(nameof(movie.GenreId),
+                            "The selected genre does not exist!");
                     }
                 }
+            }
+            else
+            {
+                this.ModelState.AddModelError(nameof(movie.Actors),
+                    "You must enter at least 1 genre in order to create a movie.");
+            }
+
+
+            if (movie.Actors == null)
+            {
+                this.ModelState.AddModelError(nameof(movie.Actors),
+                    "You must enter at least 1 actor in order to create a movie.");
+            }
+            if (movie.Directors == null)
+            {
+                this.ModelState.AddModelError(nameof(movie.Directors),
+                    "You must enter at least 1 director in order to create a movie.");
+            }
+            if (movie.Countries == null)
+            {
+                this.ModelState.AddModelError(nameof(movie.Countries),
+                    "You must enter at least 1 country in order to create a movie.");
             }
 
             if (!ModelState.IsValid)
@@ -93,62 +115,11 @@
                 });
             }
 
-            foreach (var actor in movie.Actors.Where(x => x.FirstName != null || x.LastName != null))
-            {
-                var currActor = this.data
-                    .Actors
-                    .FirstOrDefault(x => x.FirstName == actor.FirstName && x.LastName == actor.LastName);
-
-                if (currActor == null)
-                {
-                    currActor = new Actor
-                    {
-                        FirstName = actor.FirstName,
-                        LastName = actor.LastName,
-                    };
-                }
-
-                movieData.Actors.Add(new ActorMovie { Actor = currActor });
-            }
-
-
-            foreach (var director in movie.Directors.Where(x => x.FirstName != null || x.LastName != null))
-            {
-                var currDirector = this.data
-                    .Directors
-                    .FirstOrDefault(x => x.FirstName == director.FirstName && x.LastName == director.LastName);
-
-                if (currDirector == null)
-                {
-                    currDirector = new Director
-                    {
-                        FirstName = director.FirstName,
-                        LastName = director.LastName,
-                    };
-                }
-
-                movieData.Directors.Add(new DirectorMovie { Director = currDirector });
-            }
-
-            foreach (var country in movie.Countries.Where(x => x.Name != null))
-            {
-                var currCountry = this.data
-                    .Countries
-                    .FirstOrDefault(x => x.Name == country.Name);
-
-                if (currCountry == null)
-                {
-                    currCountry = new Country
-                    {
-                        Name = country.Name,
-                    };
-                }
-
-                movieData.Countries.Add(new CountryMovie { Country = currCountry });
-            }
+            this.AddActors(movie, movieData);
+            this.AddDirectors(movie, movieData);
+            this.AddCountries(movie, movieData);
 
             this.data.Movies.Add(movieData);
-
             this.data.SaveChanges();
 
             return RedirectToAction("All", "Movies");
@@ -303,6 +274,53 @@
 
             return View(movies);
         }
+
+
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var movieCreator = this.GetMovieCreatorId(id);
+
+            if (movieCreator != this.User.GetId())
+            {
+                return Unauthorized();
+            }
+
+            var movie = this.GetEditMovieDetails(id);
+
+            return View(movie);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Edit(int id, MovieFormModel movie)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View(this.GetEditMovieDetails(id));
+            }
+
+            if (this.GetMovieCreatorId(id) != this.User.GetId())
+            {
+                return Unauthorized();
+            }
+
+            var movieData = this.data.Movies.Find(id);
+
+            movieData.Title = movie.Title;
+            movieData.Summary = movie.Summary;
+            movieData.Image = movie.ImageUrl;
+            movieData.Duration = movie.Duration;
+            movieData.Audio = movie.Audio;
+            this.AddActors(movie, movieData);
+            this.AddDirectors(movie, movieData);
+            this.AddCountries(movie, movieData);
+
+            this.data.SaveChanges();
+
+            return RedirectToAction("All", "Movies");
+        }
         private ICollection<MovieGenreViewModel> GetMovieGenres()
             => data
             .Genres
@@ -313,5 +331,117 @@
             })
             .OrderBy(x => x.Type)
             .ToList();
+
+        private string GetMovieCreatorId(int id)
+            => this.data
+                .Movies
+                .Where(x => x.Id == id)
+                .Select(x => x.Creator)
+                .FirstOrDefault();
+
+        private MovieFormModel GetEditMovieDetails( int id)
+            =>   this.data
+                .Movies
+                .Where(x => x.Id == id)
+                .Select(x => new MovieFormModel
+                {
+                    Id = x.Id,
+                    Audio = x.Audio,
+                    ImageUrl = x.Image,
+                    Title = x.Title,
+                    Summary = x.Summary,
+                    Duration = x.Duration,
+                    Genres = x.Genres.Select(g => new MovieGenreViewModel
+                    {
+                        Id = g.Genre.Id,
+                        Type = g.Genre.Type,
+                    }).ToList(),
+                    Actors = x.Actors.Select(a => new AddActorFormModel
+                    {
+                        FirstName = a.Actor.FirstName,
+                        LastName = a.Actor.LastName,
+                    }).ToList(),
+                    Directors = x.Directors.Select(d => new AddDirectorFormModel
+                    {
+                        FirstName = d.Director.FirstName,
+                        LastName = d.Director.LastName,
+                    }).ToList(),
+                    Countries = x.Countries.Select(c => new AddCountryFormModel
+                    {
+                        Name = c.Country.Name,
+                    }).ToList()
+
+                }).FirstOrDefault();
+        private void AddActors(MovieFormModel movie, Movie movieData)
+        {
+            if (movie.Actors != null)
+            {
+                foreach (var actor in movie.Actors.Where(x => x.FirstName != null || x.LastName != null))
+                {
+                    var currActor = this.data
+                        .Actors
+                        .FirstOrDefault(x => x.FirstName == actor.FirstName && x.LastName == actor.LastName);
+
+                    if (currActor == null)
+                    {
+                        currActor = new Actor
+                        {
+                            FirstName = actor.FirstName,
+                            LastName = actor.LastName,
+                        };
+                    }
+
+                    movieData.Actors.Add(new ActorMovie { Actor = currActor });
+                }
+            }
+        }
+
+        private void AddDirectors(MovieFormModel movie, Movie movieData)
+        {
+            if (movie.Directors != null)
+            {
+                foreach (var director in movie.Directors.Where(x => x.FirstName != null || x.LastName != null))
+                {
+                    var currDirector = this.data
+                        .Directors
+                        .FirstOrDefault(x => x.FirstName == director.FirstName && x.LastName == director.LastName);
+
+                    if (currDirector == null)
+                    {
+                        currDirector = new Director
+                        {
+                            FirstName = director.FirstName,
+                            LastName = director.LastName,
+                        };
+                    }
+
+                    movieData.Directors.Add(new DirectorMovie { Director = currDirector });
+                }
+            }
+
+        }
+
+        private void AddCountries(MovieFormModel movie, Movie movieData)
+        {
+            if (movie.Countries != null)
+            {
+                foreach (var country in movie.Countries.Where(x => x.Name != null))
+                {
+                    var currCountry = this.data
+                        .Countries
+                        .FirstOrDefault(x => x.Name == country.Name);
+
+                    if (currCountry == null)
+                    {
+                        currCountry = new Country
+                        {
+                            Name = country.Name,
+                        };
+                    }
+
+                    movieData.Countries.Add(new CountryMovie { Country = currCountry });
+                }
+            }
+        }
     }
 }

@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using static Data.DataConstants;
-    public class AddMovieFormModel
+    public class MovieFormModel
     {
         public int Id { get; set; }
 
@@ -28,18 +28,14 @@
         [Display(Name = "Duration in minutes")]
         public string Duration { get; set; }
 
-        [Required]
         public ICollection<int?> GenreId { get; set; }
 
         public ICollection<MovieGenreViewModel> Genres { get; set; }
 
-        [Required]
         public ICollection<AddActorFormModel> Actors { get; set; }
 
-        [Required]
         public ICollection<AddDirectorFormModel> Directors { get; set; }
 
-        [Required]
         public ICollection<AddCountryFormModel> Countries { get; set; }
 
     }

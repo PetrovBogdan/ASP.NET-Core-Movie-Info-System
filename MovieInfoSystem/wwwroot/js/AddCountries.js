@@ -1,0 +1,14 @@
+﻿
+let countriesIndex = 0;
+
+
+
+$("#add-country").click(function (e) {
+    e.preventDefault();
+    $("#countries-container").append(`<div class="form-group">
+        <label>Country Name</label>
+        <input name='Countries[`+ [countriesIndex] + `].Name' class='form-control' placeholder='USA, Bulgarian, ect. '>
+                                                              </div> `);
+
+    countriesIndex++;
+});

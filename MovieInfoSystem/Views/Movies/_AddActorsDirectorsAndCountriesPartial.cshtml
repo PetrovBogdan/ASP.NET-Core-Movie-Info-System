@@ -1,0 +1,24 @@
+﻿@model MovieFormModel
+
+<label asp-for="Actors" class="text-center p-3 h5 float-md-none ">Actors</label>
+<div id="actors-container">
+    <span asp-validation-for="Actors" class="small text-danger"></span>
+</div>
+<div class="btn btn-success" id="add-actor">+</div>
+<br />
+<br />
+<label asp-for="Directors" class="text-center p-3 h5 float-md-none ">Directors</label>
+<div id="directors-container">
+    <span asp-validation-for="Directors" class="small text-danger"></span>
+</div>
+<div class="btn btn-success" id="add-director">+</div>
+<br />
+<br />
+<label asp-for="Countries" class="text-center p-3 h5 float-md-none">Countries</label>
+<div id="countries-container">
+    <span asp-validation-for="Countries" class="small text-danger"></span>
+</div>
+<div class="btn btn-success" id="add-country">+</div>
+<br />
+<br />
+

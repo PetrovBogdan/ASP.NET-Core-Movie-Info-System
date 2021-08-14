@@ -1,0 +1,27 @@
+﻿@model MovieFormModel
+
+<div class="form-group">
+    <label asp-for="Title"></label>
+    <input asp-for="Title" class="form-control">
+    <span asp-validation-for="Title" class="small text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="ImageUrl"></label>
+    <input asp-for="ImageUrl" class="form-control">
+    <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Audio"></label>
+    <input asp-for="Audio" class="form-control" placeholder="English, Bulgarian, ect. ">
+    <span asp-validation-for="Audio" class="small text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Duration"></label>
+    <input asp-for="Duration" class="form-control" placeholder="123">
+    <span asp-validation-for="Duration" class="small text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Summary">Summary</label>
+    <textarea asp-for="Summary" class="form-control" rows="3"></textarea>
+    <span asp-validation-for="Summary" class="small text-danger"></span>
+</div>
