@@ -1,4 +1,5 @@
 ﻿let actorsIndex = 0;
+
 $("#add-actor").click(function (e) {
     e.preventDefault();
     $("#actors-container").append(`<div class="row">
