@@ -362,7 +362,20 @@
         [Authorize]
         public IActionResult Delete(int id)
         {
-            return View();
+            var movie = this.data
+                .Movies
+                .FirstOrDefault(x => x.Id == id);
+
+            if (movie == null)
+            {
+                return BadRequest();
+            }
+
+            this.data.Movies.Remove(movie);
+
+            this.data.SaveChanges();
+
+            return RedirectToAction("All", "Movies");
         }
 
         private ICollection<MovieGenreViewModel> GetMovieGenres()
