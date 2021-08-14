@@ -26,6 +26,8 @@
 
         public ICollection<Movie> Movies { get; set; } = new HashSet<Movie>();
 
+        public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
+
 
     }
 }

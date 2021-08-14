@@ -98,7 +98,7 @@
 
             return View();
         }
-            
+
         [HttpPost]
         [Authorize]
         public IActionResult AddDetails(AddActorDetailsFormModel details, int id)
@@ -138,7 +138,7 @@
 
             this.data.SaveChanges();
 
-            return RedirectToAction("All","Actors");
+            return RedirectToAction(nameof(Details), new { id = id });
         }
 
     }

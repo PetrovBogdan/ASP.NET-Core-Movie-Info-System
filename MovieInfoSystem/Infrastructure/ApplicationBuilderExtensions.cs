@@ -2,11 +2,11 @@
 {
     using System.Linq;
 
+    using MovieInfoSystem.Data;
+    using MovieInfoSystem.Data.Models;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
-    using MovieInfoSystem.Data;
-    using MovieInfoSystem.Data.Models;
 
     public static class ApplicationBuilderExtensions
     {

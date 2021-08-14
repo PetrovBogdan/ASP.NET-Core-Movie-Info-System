@@ -67,7 +67,7 @@
                 </div>
                 <button id="add-more-details" class="btn btn-success">Add more details</button>
                 <button type="submit" class="btn btn-primary">Commit changes</button>
-                <button class="btn btn-danger">Delete movie</button>
+                <button class="btn btn-danger" asp-controller="Movies" asp-action="Delete" asp-route-id="@Model.Id">Delete movie</button>
             </form>
         </div>
     </div>

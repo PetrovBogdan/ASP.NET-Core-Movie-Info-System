@@ -9,17 +9,17 @@
         public int Id { get; init; }
 
         [Required]
-        public string Description { get; set; }
+        public string Body { get; set; }
 
         public DateTime CreatedOn { get; init; } = DateTime.UtcNow;
-
-        public int Likes { get; set; }
-
-        public int Dislikes { get; set; }
 
         public int MovieId { get; set; }
 
         public Movie Movie { get; set; }
+
+        public int AuthorId { get; set; }
+
+        public Author Author { get; set; }
 
     }
 }

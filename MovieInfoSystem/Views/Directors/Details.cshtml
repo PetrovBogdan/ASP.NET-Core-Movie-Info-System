@@ -26,9 +26,6 @@
                 </ul>
             </div>
         </div>
-        <div class="col-md-2">
-            <input type="submit" class="profile-edit-btn" value="Edit Director" />
-        </div>
     </div>
     <div class="row">
         <div class="col-md-4"></div>
@@ -67,8 +64,8 @@
     </div>
 </div>
 @if (string.IsNullOrWhiteSpace(Model.Country) ||
- string.IsNullOrWhiteSpace(Model.Biography) ||
- string.IsNullOrWhiteSpace(Model.Picture))
+string.IsNullOrWhiteSpace(Model.Biography) ||
+string.IsNullOrWhiteSpace(Model.Picture))
 {
     <div class="text-center mt-5">
         <form method="get">

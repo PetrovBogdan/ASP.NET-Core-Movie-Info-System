@@ -1,7 +1,4 @@
-﻿
-let countriesIndex = 0;
-
-
+﻿let countriesIndex = 0;
 
 $("#add-country").click(function (e) {
     e.preventDefault();

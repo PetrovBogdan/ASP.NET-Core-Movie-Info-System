@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace MovieInfoSystem.Data.Migrations
+﻿namespace MovieInfoSystem.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
     public partial class RemovedLikesAndDislikedFromMovieAndChangedTypeofDuration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

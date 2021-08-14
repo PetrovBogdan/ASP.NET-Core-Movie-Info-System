@@ -17,5 +17,8 @@
         public const int AudioMinLength = 2;
         public const int AudioMaxLength = 30;
 
+        public const int CommentMinLength = 5;
+        public const int CommentMaxLength = 100;
+
     }
 }

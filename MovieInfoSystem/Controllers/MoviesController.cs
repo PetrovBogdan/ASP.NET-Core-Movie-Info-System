@@ -65,7 +65,6 @@
                     "You must enter at least 1 genre in order to create a movie.");
             }
 
-
             if (movie.Actors == null)
             {
                 this.ModelState.AddModelError(nameof(movie.Actors),
@@ -202,6 +201,13 @@
                     CreatedOn = x.CreatedOn.ToString("dddd, dd MMMM yyyy"),
                     Duration = x.Duration,
                     IsCreator = x.Creator == this.User.GetId(),
+                    Comments = x.Comments.Select(c => new MovieCommentsViewModel
+                    {
+                        Id = c.Id,
+                        AuthorName = c.Author.Name,
+                        Body = c.Body,
+                        CreatedOn = c.CreatedOn.ToString("dddd, dd MMMM yyyy")
+                    }).ToList(),
                     Genres = x.Genres.Select(g => new MovieGenreViewModel
                     {
                         Id = g.Genre.Id,
@@ -319,8 +325,46 @@
 
             this.data.SaveChanges();
 
-            return RedirectToAction("All", "Movies");
+            return RedirectToAction(nameof(Details), new { id = id });
         }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult AddComment(int id, string comment)
+        {
+
+            var movie = this.data.Movies.FirstOrDefault(x => x.Id == id);
+            var author = this.data.Authors.FirstOrDefault(x => x.UserId == this.User.GetId());
+
+            if (string.IsNullOrWhiteSpace(comment))
+            {
+                this.ModelState.AddModelError(nameof(movie.Comments), "The comment must be at least 5 characters long.");
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(Details), new { id = id });
+            }
+
+            var currComment = new Comment
+            {
+                Movie = movie,
+                Author = author,
+                Body = comment,
+            };
+
+            movie.Comments.Add(currComment);
+            data.SaveChanges();
+
+            return RedirectToAction(nameof(Details), new { id = id });
+        }
+
+        [Authorize]
+        public IActionResult Delete(int id)
+        {
+            return View();
+        }
+
         private ICollection<MovieGenreViewModel> GetMovieGenres()
             => data
             .Genres
@@ -339,8 +383,8 @@
                 .Select(x => x.Creator)
                 .FirstOrDefault();
 
-        private MovieFormModel GetEditMovieDetails( int id)
-            =>   this.data
+        private MovieFormModel GetEditMovieDetails(int id)
+            => this.data
                 .Movies
                 .Where(x => x.Id == id)
                 .Select(x => new MovieFormModel

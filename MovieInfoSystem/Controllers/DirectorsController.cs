@@ -10,7 +10,7 @@
     using MovieInfoSystem.Models.Directors;
     using Microsoft.AspNetCore.Authorization;
 
-    public class DirectorsController: Controller
+    public class DirectorsController : Controller
     {
         private readonly ApplicationDbContext data;
         private readonly IAuthorService authorService;
@@ -138,7 +138,7 @@
 
             this.data.SaveChanges();
 
-            return RedirectToAction("All", "Directors");
+            return RedirectToAction(nameof(Details), new { id = id });
         }
     }
 }

@@ -108,3 +108,75 @@
         </div>
     </div>
 </div>
+
+<div class="container mt-5" style="display:none" id="comments-container">
+    <div class="row d-flex justify-content-center text-center">
+        <div class="col-md-8">
+            <div class="headings d-flex justify-content-between align-items-center mb-3">
+                <h5>Comments</h5>
+            </div>
+            @if (!Model.Comments.Any())
+            {
+                <h3>Currently there are no comments for this movie.</h3>
+            }
+            else
+            {
+                @foreach (var comment in Model.Comments)
+                {
+                    <div class="card p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="user d-flex flex-row align-items-center"> <span><small class="font-weight-bold text-primary">@comment.AuthorName:</small> <small class="font-weight-bold">@comment.Body</small></span> </div> <small>@comment.CreatedOn</small>
+                        </div>
+                        <div class="action d-flex justify-content-between mt-2 align-items-center">
+                            <div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<div class="container text-center" style="position:center">
+    <button class="btn btn-primary" id="movie-comments">Comments</button>
+    <button class="btn btn-info " style="display:none" id="add-comment">Add comment</button>
+</div>
+
+<div class="container" style="display:none" id="comment-field">
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Comment">Comment</label>
+            <textarea asp-for="Comment" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Comment" class="small text-danger"></span>
+        </div>
+        <button class="btn btn-success" type="submit"
+                asp-controller="Movies" asp-action="AddComment"
+                asp-route-id="@Model.Id">
+            Submit
+        </button>
+    </form>
+</div>
+
+
+@section Scripts{
+
+    <script>
+
+        let movieCommentsButtonElement = document.getElementById('movie-comments');
+        let commentsContainerDivElement = document.getElementById('comments-container');
+        let addCommentButtonElement = document.getElementById('add-comment');
+        let commentFieldContainerDivElement = document.getElementById('comment-field');
+
+        movieCommentsButtonElement.addEventListener("click", () => {
+
+            movieCommentsButtonElement.style.display = "none";
+            commentsContainerDivElement.style.display = 'block';
+            addCommentButtonElement.style.display = "block";
+        });
+
+        addCommentButtonElement.addEventListener("click", () => {
+            addCommentButtonElement.style.display = "none";
+            commentFieldContainerDivElement.style.display = "block";
+        });
+    </script>
+}

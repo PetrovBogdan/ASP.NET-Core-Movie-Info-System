@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace MovieInfoSystem.Data.Migrations
+﻿namespace MovieInfoSystem.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddedCreatorPropertyForMovies : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

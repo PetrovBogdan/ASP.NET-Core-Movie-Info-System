@@ -68,6 +68,13 @@
                 .HasForeignKey(x => x.CountryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<Author>()
+                .HasMany(x => x.Comments)
+                .WithOne(x => x.Author)
+                .HasForeignKey(x => x.AuthorId)
+                .OnDelete(DeleteBehavior.Restrict);
+                
+
             base.OnModelCreating(builder);
         }
     }

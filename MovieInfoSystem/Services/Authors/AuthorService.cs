@@ -1,7 +1,7 @@
 ﻿namespace MovieInfoSystem.Services.Authors
 {
-    using MovieInfoSystem.Data;
     using System.Linq;
+    using MovieInfoSystem.Data;
 
     public class AuthorService : IAuthorService
     {
