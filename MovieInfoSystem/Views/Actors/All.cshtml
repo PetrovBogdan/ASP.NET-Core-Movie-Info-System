@@ -40,9 +40,9 @@ else
         {
             <div class="p-lg-2">
                 <div class="card" style="width: 16rem; padding:7px;">
-                    <img class="card-img-top" src="@actor.Picture" alt="Card image cap">
+                    <img height="250" class="card-img-top" src="@actor.Picture" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title">@actor.FirstName @actor.LastName</h5>
+                        <h6 class="card-title">@actor.FirstName @actor.LastName</h6>
                     </div>
                     <div class="card-body">
                         <a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id" class="card-link btn btn-primary text-center">Details</a>
@@ -54,7 +54,7 @@ else
 }
 
 
-<div class="w3-clear nextprev text-center">
+<div class="w3-clear nextprev text-center mt-5">
     <a class="w3-left btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty) "
        asp-controller="Actors"
        asp-action="All"

@@ -21,10 +21,10 @@
             this.authorService = authorService;
         }
 
-        public IActionResult All(int currentPage, string searchTerm)
+        public IActionResult All(int currentPage, string searchTerm, int? id)
         {
             var actorsQuery = this.data.Actors.AsQueryable();
-
+           
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 actorsQuery = actorsQuery
@@ -37,7 +37,7 @@
                 currentPage = 1;
             }
 
-            var totalActors = this.data.Actors.Count();
+            var totalActors = actorsQuery.Count();
 
             var actors = actorsQuery
                 .OrderByDescending(x => x.Id)

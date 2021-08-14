@@ -35,7 +35,7 @@ else
                         @if (firstMovie != null)
                         {
                             <div class="carousel-item active">
-                                <img class="d-block w-100" src="@firstMovie.Image" alt="@firstMovie.Title">
+                                <img class="d-block w-100" height="550" src="@firstMovie.Image" alt="@firstMovie.Title">
                                 <div class="carousel-caption d-none d-md-block">
                                     <p class="btn btn-dark"><a class="text-white" asp-controller="Movies" asp-action="Details" asp-route-id="@firstMovie.Id" alt="@firstMovie.Title">@firstMovie.Title</a></p>
                                 </div>
@@ -45,7 +45,7 @@ else
                         @if (secondMovie != null)
                         {
                             <div class="carousel-item">
-                                <img class="d-block w-100" src="@secondMovie.Image" alt="@secondMovie.Title">
+                                <img class="d-block w-100" height="550" src="@secondMovie.Image" alt="@secondMovie.Title">
                                 <div class="carousel-caption d-none d-md-block">
                                     <p class="btn btn-dark"><a class="text-white" asp-controller="Movies" asp-action="Details" asp-route-id="@secondMovie.Id" alt="@secondMovie.Title">@secondMovie.Title</a></p>
                                 </div>
@@ -54,7 +54,7 @@ else
                         @if (thirdMovie != null)
                         {
                             <div class="carousel-item">
-                                <img class="d-block w-100" src="@thirdMovie.Image" alt="@thirdMovie.Title ">
+                                <img class="d-block w-100" src="@thirdMovie.Image" height="550" alt="@thirdMovie.Title ">
                                 <div class="carousel-caption d-none d-md-block">
                                     <p class="btn btn-dark"><a class="text-white" asp-controller="Movies" asp-action="Details" asp-route-id="@thirdMovie.Id" alt="@thirdMovie.Title">@thirdMovie.Title</a></p>
                                 </div>

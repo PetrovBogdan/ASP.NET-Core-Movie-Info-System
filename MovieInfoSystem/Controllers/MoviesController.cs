@@ -281,7 +281,6 @@
             return View(movies);
         }
 
-
         [Authorize]
         public IActionResult Edit(int id)
         {

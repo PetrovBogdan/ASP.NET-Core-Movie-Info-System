@@ -5,16 +5,16 @@
     {
         <div class="p-lg-2">
             <div class="card" style="width: 16rem; padding:7px;">
-                <img class="card-img-top" src="@movie.Image" alt="Card image cap">
+                <img height="350" class="card-img-top" src="@movie.Image" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">@movie.Title</h5>
+                    <h6 class="card-title">@movie.Title</h6>
                     <p class="card-text">@movie.Summary.Substring(0, 50)...</p>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <span class="font-weight-bold">Actors:</span>
                         <span>
-                            @string.Join(", ", movie.Actors.Select(a => a.FirstName + " " + a.LastName))
+                            @movie.Actors.Select(a => a.FirstName + " " + a.LastName).First()...
                         </span>
                     </li>
                     <li class="list-group-item">

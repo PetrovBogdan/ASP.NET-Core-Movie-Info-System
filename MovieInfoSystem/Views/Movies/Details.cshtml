@@ -47,7 +47,7 @@
         <div class="col-md-4">
             <div class="profile-work">
                 <br />
-                <a href="">Actors</a><br />
+                <a asp-controller="Actors" asp-action="All" asp-route-id="@Model.Id">Actors</a><br />
                 <br />
                 <a href="">Directors</a><br />
                 <br />
@@ -137,8 +137,8 @@
     </div>
 </div>
 
-<div class="container text-center" style="position:center">
-    <button class="btn btn-primary" id="movie-comments">Comments</button>
+<div class="container text-center mt-5" style="position:center">
+    <button class="btn btn-primary" id="movie-comments">Show comments (@Model.Comments.Count)</button>
     <button class="btn btn-info " style="display:none" id="add-comment">Add comment</button>
 </div>
 
