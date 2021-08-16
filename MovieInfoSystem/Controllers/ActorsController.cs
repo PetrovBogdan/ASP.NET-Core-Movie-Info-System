@@ -1,5 +1,6 @@
 ﻿namespace MovieInfoSystem.Controllers
 {
+    using System;
     using System.Linq;
 
     using MovieInfoSystem.Data;
@@ -21,10 +22,10 @@
             this.authorService = authorService;
         }
 
-        public IActionResult All(int currentPage, string searchTerm, int? id)
+        public IActionResult All(int currentPage, string searchTerm)
         {
             var actorsQuery = this.data.Actors.AsQueryable();
-           
+
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 actorsQuery = actorsQuery
@@ -32,12 +33,19 @@
                            x.LastName.ToLower().Contains(searchTerm.ToLower()));
             }
 
-            if (currentPage == 0)
+            if (currentPage <= 0)
             {
                 currentPage = 1;
             }
 
             var totalActors = actorsQuery.Count();
+
+            var maxPage = Math.Ceiling((double)totalActors / AllActorsViewModel.ActorsPerPage);
+
+            if (currentPage > maxPage)
+            {
+                currentPage = (int)maxPage;
+            }
 
             var actors = actorsQuery
                 .OrderByDescending(x => x.Id)
@@ -82,6 +90,11 @@
                     Movies = x.Movies.Select(x => x.Movie.Title).ToList(),
                 })
                 .FirstOrDefault();
+
+            if (actor == null)
+            {
+                return BadRequest();
+            }
 
             return View(actor);
         }

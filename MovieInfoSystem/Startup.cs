@@ -10,6 +10,8 @@ namespace MovieInfoSystem
     using MovieInfoSystem.Services.Authors;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.AspNetCore.Mvc;
+    using MovieInfoSystem.Services.Movies;
 
     public class Startup
     {
@@ -35,9 +37,14 @@ namespace MovieInfoSystem
             })
              .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });
 
             services.AddTransient<IAuthorService, AuthorService>();
+            services.AddTransient<IMovieService, MovieService>();
+
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

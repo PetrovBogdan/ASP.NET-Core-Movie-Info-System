@@ -1,10 +1,9 @@
-﻿namespace MovieInfoSystem.Models.Movies
+﻿namespace MovieInfoSystem.Services.Movies.Models
 {
-    public class MovieGenreViewModel
+    public class MovieGenreServiceModel
     {
         public int Id { get; set; }
 
         public string Type { get; set; }
-
     }
 }

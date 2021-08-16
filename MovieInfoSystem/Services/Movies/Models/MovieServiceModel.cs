@@ -1,12 +1,10 @@
-﻿namespace MovieInfoSystem.Models.Movies
+﻿namespace MovieInfoSystem.Services.Movies.Models
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using MovieInfoSystem.Services.Movies.Models;
-
     using static Data.DataConstants;
-    public class MovieFormModel
+    public class MovieServiceModel
     {
         public int Id { get; set; }
 
@@ -39,6 +37,5 @@
         public ICollection<AddDirectorServiceModel> Directors { get; set; }
 
         public ICollection<AddCountryServiceModel> Countries { get; set; }
-
     }
 }

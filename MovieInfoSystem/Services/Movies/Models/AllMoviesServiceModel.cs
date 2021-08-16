@@ -1,9 +1,9 @@
-﻿namespace MovieInfoSystem.Models.Movies
+﻿namespace MovieInfoSystem.Services.Movies.Models
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class AllMoviesViewModel
+    public class AllMoviesServiceModel
     {
         public const int MoviesPerPage = 4;
 
@@ -14,6 +14,6 @@
 
         public int TotalMovies { get; set; }
 
-        public List<MovieListingViewModel> Movies { get; init; }
+        public List<MovieListingServiceModel> Movies { get; init; }
     }
 }

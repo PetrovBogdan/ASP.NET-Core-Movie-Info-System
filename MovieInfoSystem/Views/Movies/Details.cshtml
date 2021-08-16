@@ -1,4 +1,4 @@
-﻿@model MovieDetailsViewModel
+﻿@model MovieDetailsServiceModel
 
 @{
     ViewBag.Title = "Movie details";
@@ -45,13 +45,6 @@
     </div>
     <div class="row">
         <div class="col-md-4">
-            <div class="profile-work">
-                <br />
-                <a asp-controller="Actors" asp-action="All" asp-route-id="@Model.Id">Actors</a><br />
-                <br />
-                <a href="">Directors</a><br />
-                <br />
-            </div>
         </div>
         <div class="col-md-8">
             <div class="tab-content profile-tab" id="myTabContent">

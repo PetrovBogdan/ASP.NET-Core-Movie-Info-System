@@ -1,9 +1,9 @@
-﻿namespace MovieInfoSystem.Models.Movies
+﻿namespace MovieInfoSystem.Services.Movies.Models
 {
     using System.ComponentModel.DataAnnotations;
 
     using static Data.DataConstants;
-    public class AddActorFormModel
+    public class AddActorServiceModel
     {
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]

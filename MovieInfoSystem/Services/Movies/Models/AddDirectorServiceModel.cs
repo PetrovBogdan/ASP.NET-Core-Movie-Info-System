@@ -1,9 +1,9 @@
-﻿namespace MovieInfoSystem.Models.Movies
+﻿namespace MovieInfoSystem.Services.Movies.Models
 {
     using System.ComponentModel.DataAnnotations;
 
     using static Data.DataConstants;
-    public class AddDirectorFormModel
+    public class AddDirectorServiceModel
     {
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
@@ -12,6 +12,5 @@
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
         public string LastName { get; set; }
-
     }
 }

@@ -1,10 +1,11 @@
-﻿namespace MovieInfoSystem.Models.Movies
+﻿namespace MovieInfoSystem.Services.Movies.Models
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using static Data.DataConstants;
-    public class MovieDetailsViewModel
+
+    public class MovieDetailsServiceModel
     {
         public int Id { get; init; }
 
@@ -27,15 +28,15 @@
         [StringLength(CommentMaxLength, MinimumLength = CommentMinLength)]
         public string Comment { get; set; }
 
-        public ICollection<MovieDirectorsViewModel> Directors { get; init; }
+        public ICollection<MovieDirectorsServiceModel> Directors { get; init; }
 
         [Display(Name = "Genre")]
-        public ICollection<MovieGenreViewModel> Genres { get; init; }
+        public ICollection<MovieGenreServiceModel> Genres { get; init; }
 
-        public ICollection<MovieCountriesViewMOdel> Countries { get; init; }
+        public ICollection<MovieCountriesServiceModel> Countries { get; init; }
 
-        public ICollection<MovieActorsViewModel> Actors { get; init; }
+        public ICollection<MovieActorsServiceModel> Actors { get; init; }
 
-        public ICollection<MovieCommentsViewModel> Comments { get; init; }
+        public ICollection<MovieCommentsServiceModel> Comments { get; init; }
     }
 }

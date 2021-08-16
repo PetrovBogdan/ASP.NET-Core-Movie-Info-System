@@ -1,13 +1,12 @@
-﻿namespace MovieInfoSystem.Models.Movies
+﻿namespace MovieInfoSystem.Services.Movies.Models
 {
     using System.ComponentModel.DataAnnotations;
 
     using static Data.DataConstants;
-    public class AddCountryFormModel
+    public class AddCountryServiceModel
     {
         [Required]
         [StringLength(CountryNameMaxLength, MinimumLength = CountryNameMinLength)]
         public string Name { get; set; }
-
     }
 }

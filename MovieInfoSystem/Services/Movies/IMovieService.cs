@@ -1,0 +1,49 @@
+﻿namespace MovieInfoSystem.Services.Movies
+{
+    using System.Collections.Generic;
+    using MovieInfoSystem.Services.Movies.Models;
+    public interface IMovieService
+    {
+        public void Create(string title,
+            string summary,
+            string duration,
+            string image,
+            string audio,
+            int authorId,
+            string creator,
+            ICollection<int?> genres,
+            ICollection<AddActorServiceModel> actors,
+            ICollection<AddDirectorServiceModel> directors,
+            ICollection<AddCountryServiceModel> countries);
+
+        public void Edit(int id,
+            string title,
+            string summary,
+            string duration,
+            string image,
+            string audio,
+            ICollection<AddActorServiceModel> actors,
+            ICollection<AddDirectorServiceModel> directors,
+            ICollection<AddCountryServiceModel> countries);
+
+        public MovieDetailsServiceModel Details(int id, string userId);
+
+        public AllMoviesServiceModel All(string searchTerm,
+            int currentPage);
+
+        public ICollection<MovieListingServiceModel> Mine(string userId);
+
+        public void AddComment(int id,
+            string comment, 
+            string userId);
+
+        public bool Delete(int id);
+
+        public ICollection<MovieGenreServiceModel> GetGenres();
+
+        public string GetCreatorId(int userId);
+
+        public MovieServiceModel GetEditDetails(int id);
+
+    }
+}

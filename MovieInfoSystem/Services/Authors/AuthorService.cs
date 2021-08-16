@@ -10,6 +10,13 @@
         public AuthorService(ApplicationDbContext data)
             => this.data = data;
 
+        public int GetId(string userId)
+            => this.data
+                .Authors
+                .Where(x => x.UserId == userId)
+                .Select(x => x.Id)
+                .FirstOrDefault();
+
         public bool IsAuthor(string userId)
             => this.data
                 .Authors

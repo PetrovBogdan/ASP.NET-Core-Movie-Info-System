@@ -1,12 +1,11 @@
-﻿namespace MovieInfoSystem.Models.Movies
+﻿namespace MovieInfoSystem.Services.Movies.Models
 {
-    public class MovieDirectorsViewModel
+    public class MovieDirectorsServiceModel
     {
         public int Id { get; set; }
 
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-
     }
 }

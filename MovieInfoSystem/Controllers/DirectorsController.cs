@@ -1,5 +1,6 @@
 ﻿namespace MovieInfoSystem.Controllers
 {
+    using System;
     using System.Linq;
 
     using MovieInfoSystem.Data;
@@ -32,12 +33,19 @@
                            x.LastName.ToLower().Contains(searchTerm.ToLower()));
             }
 
-            if (currentPage == 0)
+            if (currentPage <= 0)
             {
                 currentPage = 1;
             }
 
             var totalDirectors = this.data.Directors.Count();
+
+            var maxPage = Math.Ceiling((double)totalDirectors / AllDirectorsViewModel.DirectorsPerPage);
+
+            if (currentPage > maxPage)
+            {
+                currentPage = (int)maxPage;
+            }
 
             var directors = directorsQuery
                 .OrderByDescending(x => x.Id)
@@ -82,6 +90,11 @@
                     Movies = x.Movies.Select(x => x.Movie.Title).ToList(),
                 })
                 .FirstOrDefault();
+
+            if (director == null)
+            {
+                return BadRequest();
+            }
 
             return View(director);
         }

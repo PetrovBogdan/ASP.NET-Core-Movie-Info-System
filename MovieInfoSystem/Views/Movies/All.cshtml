@@ -1,4 +1,4 @@
-﻿@model AllMoviesViewModel
+﻿@model AllMoviesServiceModel
 
 @{
     ViewBag.Title = "All Movies";
@@ -10,7 +10,7 @@
         previousPage = 1;
     }
 
-    var maxPage = Math.Ceiling((double)Model.TotalMovies / AllMoviesViewModel.MoviesPerPage);
+    var maxPage = Math.Ceiling((double)Model.TotalMovies / AllMoviesServiceModel.MoviesPerPage);
 }
 
 <label class="small font-weight-bold font-italic" asp-for="SearchTerm"></label>
