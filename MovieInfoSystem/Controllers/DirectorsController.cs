@@ -1,101 +1,34 @@
 ﻿namespace MovieInfoSystem.Controllers
 {
-    using System;
-    using System.Linq;
-
     using MovieInfoSystem.Data;
     using Microsoft.AspNetCore.Mvc;
-    using MovieInfoSystem.Data.Models;
     using MovieInfoSystem.Infrastructure;
     using MovieInfoSystem.Services.Authors;
     using MovieInfoSystem.Models.Directors;
     using Microsoft.AspNetCore.Authorization;
-    using System.Collections.Generic;
+    using MovieInfoSystem.Services.Directors;
 
     public class DirectorsController : Controller
     {
-        private readonly ApplicationDbContext data;
-        private readonly IAuthorService authorService;
+        private readonly IAuthorService author;
+        private readonly IDirectorService director;
 
-        public DirectorsController(ApplicationDbContext data, IAuthorService authorService)
+        public DirectorsController(IAuthorService author,
+            IDirectorService director)
         {
-            this.data = data;
-            this.authorService = authorService;
+            this.director = director;
+            this.author = author;
         }
 
-        public IActionResult All(int currentPage, string searchTerm)
-        {
-            var directorsQuery = this.data.Directors.AsQueryable();
-
-            if (!string.IsNullOrWhiteSpace(searchTerm))
-            {
-                directorsQuery = directorsQuery
-                   .Where(x => x.FirstName.ToLower().Contains(searchTerm.ToLower()) ||
-                           x.LastName.ToLower().Contains(searchTerm.ToLower()));
-            }
-
-            if (currentPage <= 0)
-            {
-                currentPage = 1;
-            }
-
-            var totalDirectors = this.data.Directors.Count();
-
-            var maxPage = Math.Ceiling((double)totalDirectors / AllDirectorsViewModel.DirectorsPerPage);
-
-            if (currentPage > maxPage)
-            {
-                currentPage = (int)maxPage;
-            }
-
-            List<DirectorsListingViewModel> directors = new List<DirectorsListingViewModel>();
-
-            if (directorsQuery.Count() > 0)
-            {
-                directors = directorsQuery
-                      .OrderByDescending(x => x.Id)
-                      .Skip((currentPage - 1) * AllDirectorsViewModel.DirectorsPerPage)
-                      .Take(AllDirectorsViewModel.DirectorsPerPage)
-                      .Select(x => new DirectorsListingViewModel
-                      {
-                          Id = x.Id,
-                          FirstName = x.FirstName,
-                          LastName = x.LastName,
-                          Country = x.Country.Name,
-                          Biography = x.Biography,
-                          Picture = x.Picture,
-                          Movies = x.Movies
-                                      .Select(x => x.Movie.Title)
-                                      .ToList()
-                      }).ToList();
-            }
-
-            return View(new AllDirectorsViewModel
-            {
-                TotalDirectors = totalDirectors,
-                CurrentPage = currentPage,
-                SearchTerm = searchTerm,
-                Directors = directors,
-            });
-        }
+        public IActionResult All(int currentPage,
+            string searchTerm)
+            => View(this.director
+                .All(currentPage, searchTerm));
 
         [Authorize]
         public IActionResult Details(int id)
         {
-            var director = this.data
-                .Directors
-                .Where(x => x.Id == id)
-                .Select(x => new DirectorDetailsViewModel
-                {
-                    Id = x.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    Country = x.Country.Name,
-                    Picture = x.Picture,
-                    Biography = x.Biography,
-                    Movies = x.Movies.Select(x => x.Movie.Title).ToList(),
-                })
-                .FirstOrDefault();
+            var director = this.director.Details(id);
 
             if (director == null)
             {
@@ -110,7 +43,7 @@
         {
             var userId = this.User.GetId();
 
-            if (!this.authorService.IsAuthor(userId))
+            if (!this.author.IsAuthor(userId))
             {
                 return RedirectToAction("Create", "Authors");
             }
@@ -127,35 +60,15 @@
                 return View();
             }
 
-            var director = this.data
-                .Directors
-                .Where(x => x.Id == id)
-                .FirstOrDefault();
-
-            if (director == null)
+            if (this.director.
+                AddDetails
+                (details.CountryName,
+                details.Biography,
+                details.Picture,
+                id) == false)
             {
                 return BadRequest();
             }
-
-            director.Biography = details.Biography;
-            director.Picture = details.Picture;
-
-            var country = this.data
-                .Countries
-                .Where(x => x.Name == details.CountryName)
-                .FirstOrDefault();
-
-            if (country == null)
-            {
-                country = new Country
-                {
-                    Name = details.CountryName,
-                };
-            }
-
-            director.Country = country;
-
-            this.data.SaveChanges();
 
             return RedirectToAction(nameof(Details), new { id = id });
         }

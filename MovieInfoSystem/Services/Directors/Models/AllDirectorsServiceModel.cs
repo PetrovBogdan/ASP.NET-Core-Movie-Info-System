@@ -1,9 +1,10 @@
-﻿namespace MovieInfoSystem.Models.Directors
+﻿namespace MovieInfoSystem.Services.Directors.Models
 {
     using System.Collections.Generic;
+
     using System.ComponentModel.DataAnnotations;
 
-    public class AllDirectorsViewModel
+    public class AllDirectorsServiceModel
     {
         public const int DirectorsPerPage = 4;
 
@@ -14,6 +15,6 @@
 
         public int TotalDirectors { get; set; }
 
-        public List<DirectorsListingViewModel> Directors { get; init; }
+        public List<DirectorsListingServiceModel> Directors { get; init; }
     }
 }

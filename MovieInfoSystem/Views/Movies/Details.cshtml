@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Movie details";
 
-    var actors = Model.Actors.Select(x => x.FirstName + " " + x.LastName);
     var directors = Model.Directors.Select(x => x.FirstName + " " + x.LastName);
     var countries = Model.Countries.Select(x => x.Name);
     var genres = Model.Genres.Select(x => x.Type);
@@ -54,7 +53,18 @@
                             <label>Actors:</label>
                         </div>
                         <div class="col-md-6">
-                            <p>@string.Join(", ", actors)</p>
+                            <p>
+                                @foreach (var actor in Model.Actors)
+                                {
+
+                                    <a class="text-dark"
+                                       asp-action="Details"
+                                       asp-controller="Actors"
+                                       asp-route-id="@actor.Id">
+                                        @actor.FirstName @actor.LastName,
+                                    </a>
+                                }
+                            </p>
                         </div>
                     </div>
                     <div class="row">
@@ -62,7 +72,18 @@
                             <label>Directors: </label>
                         </div>
                         <div class="col-md-6">
-                            <p>@string.Join(", ", directors)</p>
+                            <p>
+                                @foreach (var director in Model.Directors)
+                                {
+
+                                    <a class="text-dark"
+                                       asp-action="Details"
+                                       asp-controller="Directors"
+                                       asp-route-id="@director.Id">
+                                        @director.FirstName @director.LastName,
+                                    </a>
+                                }
+                            </p>
                         </div>
                     </div>
                     <div class="row">

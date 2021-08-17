@@ -190,7 +190,6 @@
             return RedirectToAction("All", "Movies");
         }
 
-
         private void ValidateModelState(MovieFormModel movie)
         {
             if (movie.GenreId != null)

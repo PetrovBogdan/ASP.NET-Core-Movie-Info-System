@@ -1,4 +1,4 @@
-﻿@model AllActorsViewModel
+﻿@model AllActorsServiceModel
 
 @{
     ViewBag.Title = "All Actors";
@@ -10,7 +10,7 @@
         previousPage = 1;
     }
 
-    var maxPage = Math.Ceiling((double)Model.TotalActors / AllActorsViewModel.ActorsPerPage);
+    var maxPage = Math.Ceiling((double)Model.TotalActors / AllActorsServiceModel.ActorsPerPage);
 
 }
 

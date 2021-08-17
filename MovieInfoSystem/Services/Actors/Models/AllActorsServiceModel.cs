@@ -1,9 +1,10 @@
-﻿namespace MovieInfoSystem.Models.Actors
+﻿namespace MovieInfoSystem.Services.Actors.Models
 {
     using System.Collections.Generic;
+
     using System.ComponentModel.DataAnnotations;
 
-    public class AllActorsViewModel
+    public class AllActorsServiceModel
     {
         public const int ActorsPerPage = 4;
 
@@ -14,6 +15,6 @@
 
         public int TotalActors { get; set; }
 
-        public List<ActorsListingViewModel> Actors { get; init; }
+        public List<ActorsListingServiceModel> Actors { get; init; }
     }
 }

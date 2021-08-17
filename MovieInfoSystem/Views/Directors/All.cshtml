@@ -1,4 +1,4 @@
-﻿@model AllDirectorsViewModel
+﻿@model AllDirectorsServiceModel
 
 @{
     ViewBag.Title = "All Directors";
@@ -10,7 +10,7 @@
         previousPage = 1;
     }
 
-    var maxPage = Math.Ceiling((double)Model.TotalDirectors / AllDirectorsViewModel.DirectorsPerPage);
+    var maxPage = Math.Ceiling((double)Model.TotalDirectors / AllDirectorsServiceModel.DirectorsPerPage);
 
 }
 

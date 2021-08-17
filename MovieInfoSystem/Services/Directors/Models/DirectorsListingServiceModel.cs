@@ -1,8 +1,8 @@
-﻿namespace MovieInfoSystem.Models.Directors
+﻿namespace MovieInfoSystem.Services.Directors.Models
 {
     using System.Collections.Generic;
 
-    public class DirectorsListingViewModel
+    public class DirectorsListingServiceModel
     {
         public int Id { get; init; }
 

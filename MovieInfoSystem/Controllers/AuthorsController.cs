@@ -2,33 +2,31 @@
 {
     using MovieInfoSystem.Data;
     using Microsoft.AspNetCore.Mvc;
-    using MovieInfoSystem.Data.Models;
     using MovieInfoSystem.Models.Authors;
     using MovieInfoSystem.Infrastructure;
     using MovieInfoSystem.Services.Authors;
     using Microsoft.AspNetCore.Authorization;
 
-    public class AuthorsController: Controller
+    public class AuthorsController : Controller
     {
-        private readonly ApplicationDbContext data;
-        private readonly IAuthorService authorService;
+        private readonly IAuthorService author;
 
-        public AuthorsController(ApplicationDbContext data, IAuthorService authorService)
+        public AuthorsController(IAuthorService author)
         {
-            this.data = data;
-            this.authorService = authorService;
+            this.author = author;
         }
 
         [Authorize]
-        public IActionResult Create ()
+        public IActionResult Create()
             => View();
 
         [Authorize]
         [HttpPost]
         public IActionResult Create(BecomeAuthorFormModel author)
         {
+            var userId = this.User.GetId();
 
-            if (this.authorService.IsAuthor(this.User.GetId()))
+            if (this.author.IsAuthor(userId))
             {
                 return BadRequest();
             }
@@ -38,16 +36,7 @@
                 return View(author);
             }
 
-            var authorData = new Author
-            {
-                Name = author.Name,
-                Email = author.Email,
-                UserId = this.User.GetId(),
-            };
-
-            this.data.Authors.Add(authorData);
-
-            this.data.SaveChanges();
+            this.author.Create(author.Name, author.Email, userId);
 
             return RedirectToAction("Add", "Movies");
         }
