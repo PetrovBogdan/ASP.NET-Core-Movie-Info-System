@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Collections.Generic;
 
     using MovieInfoSystem.Data;
     using Microsoft.AspNetCore.Mvc;
@@ -47,22 +48,27 @@
                 currentPage = (int)maxPage;
             }
 
-            var actors = actorsQuery
-                .OrderByDescending(x => x.Id)
-                .Skip((currentPage - 1) * AllActorsViewModel.ActorsPerPage)
-                .Take(AllActorsViewModel.ActorsPerPage)
-                .Select(x => new ActorsListingViewModel
-                {
-                    Id = x.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    Country = x.Country.Name,
-                    Biography = x.Biography,
-                    Picture = x.Picture,
-                    Movies = x.Movies
-                                .Select(x => x.Movie.Title)
-                                .ToList()
-                }).ToList();
+            List<ActorsListingViewModel> actors = new List<ActorsListingViewModel>();
+
+            if (actorsQuery.Count() > 1)
+            {
+                actors = actorsQuery
+                     .OrderByDescending(x => x.Id)
+                     .Skip((currentPage - 1) * AllActorsViewModel.ActorsPerPage)
+                     .Take(AllActorsViewModel.ActorsPerPage)
+                     .Select(x => new ActorsListingViewModel
+                     {
+                         Id = x.Id,
+                         FirstName = x.FirstName,
+                         LastName = x.LastName,
+                         Country = x.Country.Name,
+                         Biography = x.Biography,
+                         Picture = x.Picture,
+                         Movies = x.Movies
+                                     .Select(x => x.Movie.Title)
+                                     .ToList()
+                     }).ToList();
+            }
 
             return View(new AllActorsViewModel
             {

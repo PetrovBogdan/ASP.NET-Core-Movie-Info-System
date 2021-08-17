@@ -10,6 +10,7 @@
     using MovieInfoSystem.Services.Authors;
     using MovieInfoSystem.Models.Directors;
     using Microsoft.AspNetCore.Authorization;
+    using System.Collections.Generic;
 
     public class DirectorsController : Controller
     {
@@ -47,22 +48,27 @@
                 currentPage = (int)maxPage;
             }
 
-            var directors = directorsQuery
-                .OrderByDescending(x => x.Id)
-                .Skip((currentPage - 1) * AllDirectorsViewModel.DirectorsPerPage)
-                .Take(AllDirectorsViewModel.DirectorsPerPage)
-                .Select(x => new DirectorsListingViewModel
-                {
-                    Id = x.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    Country = x.Country.Name,
-                    Biography = x.Biography,
-                    Picture = x.Picture,
-                    Movies = x.Movies
-                                .Select(x => x.Movie.Title)
-                                .ToList()
-                }).ToList();
+            List<DirectorsListingViewModel> directors = new List<DirectorsListingViewModel>();
+
+            if (directorsQuery.Count() > 0)
+            {
+                directors = directorsQuery
+                      .OrderByDescending(x => x.Id)
+                      .Skip((currentPage - 1) * AllDirectorsViewModel.DirectorsPerPage)
+                      .Take(AllDirectorsViewModel.DirectorsPerPage)
+                      .Select(x => new DirectorsListingViewModel
+                      {
+                          Id = x.Id,
+                          FirstName = x.FirstName,
+                          LastName = x.LastName,
+                          Country = x.Country.Name,
+                          Biography = x.Biography,
+                          Picture = x.Picture,
+                          Movies = x.Movies
+                                      .Select(x => x.Movie.Title)
+                                      .ToList()
+                      }).ToList();
+            }
 
             return View(new AllDirectorsViewModel
             {

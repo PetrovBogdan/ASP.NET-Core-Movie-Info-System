@@ -159,38 +159,44 @@
                 currentPage = (int)maxPage;
             }
 
-            var movies = moviesQuery
-                .OrderByDescending(x => x.Id)
-                .Skip((currentPage - 1) * AllMoviesServiceModel.MoviesPerPage)
-                .Take(AllMoviesServiceModel.MoviesPerPage)
-                .Select(x => new MovieListingServiceModel
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Audio = x.Audio,
-                    Image = x.Image,
-                    Summary = x.Summary,
-                    Actors = x.Actors.Select(a => new MovieActorsServiceModel
-                    {
-                        Id = a.Actor.Id,
-                        FirstName = a.Actor.FirstName,
-                        LastName = a.Actor.LastName,
+            List<MovieListingServiceModel> movies = new List<MovieListingServiceModel>();
 
-                    }).ToList(),
-                    Directors = x.Directors.Select(d => new MovieDirectorsServiceModel
-                    {
-                        Id = d.Director.Id,
-                        FirstName = d.Director.FirstName,
-                        LastName = d.Director.LastName,
-                    }).ToList(),
-                    Countries = x.Countries.Select(c => new MovieCountriesServiceModel
-                    {
-                        Id = c.Country.Id,
-                        Name = c.Country.Name
-                    }).ToList()
+            if (moviesQuery.Count() > 0)
+            {
+                movies = moviesQuery
+                     .OrderByDescending(x => x.Id)
+                     .Skip((currentPage - 1) * AllMoviesServiceModel.MoviesPerPage)
+                     .Take(AllMoviesServiceModel.MoviesPerPage)
+                     .Select(x => new MovieListingServiceModel
+                     {
+                         Id = x.Id,
+                         Title = x.Title,
+                         Audio = x.Audio,
+                         Image = x.Image,
+                         Summary = x.Summary,
+                         Actors = x.Actors.Select(a => new MovieActorsServiceModel
+                         {
+                             Id = a.Actor.Id,
+                             FirstName = a.Actor.FirstName,
+                             LastName = a.Actor.LastName,
 
-                })
-                .ToList();
+                         }).ToList(),
+                         Directors = x.Directors.Select(d => new MovieDirectorsServiceModel
+                         {
+                             Id = d.Director.Id,
+                             FirstName = d.Director.FirstName,
+                             LastName = d.Director.LastName,
+                         }).ToList(),
+                         Countries = x.Countries.Select(c => new MovieCountriesServiceModel
+                         {
+                             Id = c.Country.Id,
+                             Name = c.Country.Name
+                         }).ToList()
+
+                     })
+                     .ToList();
+
+            }
 
             return new AllMoviesServiceModel
             {

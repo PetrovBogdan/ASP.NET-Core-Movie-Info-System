@@ -20,7 +20,7 @@
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 </form>
 
-@if (!Model.Directors.Any() && string.IsNullOrWhiteSpace(Model.SearchTerm))
+@if (Model.Directors.Count() == 0 && string.IsNullOrWhiteSpace(Model.SearchTerm))
 {
     <div class="jumbotron">
         <h1 class=" text-center display-4">Hello, to the Movie info system!</h1>

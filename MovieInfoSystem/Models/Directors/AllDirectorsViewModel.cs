@@ -7,7 +7,7 @@
     {
         public const int DirectorsPerPage = 4;
 
-        [Display(Name = "Search by actor name")]
+        [Display(Name = "Search by director name")]
         public string SearchTerm { get; set; }
 
         public int CurrentPage { get; set; } = 1;
