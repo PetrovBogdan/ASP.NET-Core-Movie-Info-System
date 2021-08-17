@@ -2,8 +2,8 @@
 {
     using MovieInfoSystem.Services.Index.Models;
 
-    public interface IIndexService
+    public interface IHomeService
     {
-        public IndexServiceModel Home();
+        public IndexServiceModel Index();
     }
 }

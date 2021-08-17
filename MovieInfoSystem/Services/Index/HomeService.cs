@@ -4,14 +4,14 @@
     using MovieInfoSystem.Data;
     using MovieInfoSystem.Services.Index.Models;
 
-    public class IndexService : IIndexService
+    public class HomeService : IHomeService
     {
         private readonly ApplicationDbContext data;
 
-        public IndexService(ApplicationDbContext data)
+        public HomeService(ApplicationDbContext data)
             => this.data = data;
 
-        public IndexServiceModel Home()
+        public IndexServiceModel Index()
         {
             var totalMovies = this.data.Movies.Count();
             var totalActors = this.data.Actors.Count();

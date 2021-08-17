@@ -22,11 +22,18 @@
             string audio,
             int authorId,
             string creator,
+            bool userIsInTole,
             ICollection<int?> genres,
             ICollection<AddActorServiceModel> actors,
             ICollection<AddDirectorServiceModel> directors,
             ICollection<AddCountryServiceModel> countries)
         {
+
+            //TODO: Give premision to administrators to add movies.
+            if (authorId == 0 && userIsInTole)
+            {
+                ;
+            }
             var movieData = new Movie
             {
                 Title = title,

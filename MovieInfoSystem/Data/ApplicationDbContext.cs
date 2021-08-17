@@ -5,7 +5,7 @@
     using Microsoft.EntityFrameworkCore;
     using MovieInfoSystem.Data.Models;
 
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -52,7 +52,7 @@
                 .HasKey(x => new { x.CountryId, x.MovieId });
 
             builder.Entity<Author>()
-                .HasOne<IdentityUser>()
+                .HasOne<User>()
                 .WithOne()
                 .HasForeignKey<Author>(x => x.UserId);
 

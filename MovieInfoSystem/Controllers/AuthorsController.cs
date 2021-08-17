@@ -1,11 +1,12 @@
 ﻿namespace MovieInfoSystem.Controllers
 {
-    using MovieInfoSystem.Data;
     using Microsoft.AspNetCore.Mvc;
     using MovieInfoSystem.Models.Authors;
     using MovieInfoSystem.Infrastructure;
     using MovieInfoSystem.Services.Authors;
     using Microsoft.AspNetCore.Authorization;
+
+    using static WebConstants;
 
     public class AuthorsController : Controller
     {
@@ -26,7 +27,7 @@
         {
             var userId = this.User.GetId();
 
-            if (this.author.IsAuthor(userId))
+            if (this.author.IsAuthor(userId) || this.User.IsInRole(AdministratorRoleName))
             {
                 return BadRequest();
             }

@@ -15,6 +15,7 @@ namespace MovieInfoSystem
     using MovieInfoSystem.Services.Index;
     using MovieInfoSystem.Services.Actors;
     using MovieInfoSystem.Services.Directors;
+    using MovieInfoSystem.Data.Models;
 
     public class Startup
     {
@@ -30,7 +31,7 @@ namespace MovieInfoSystem
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options =>
+            services.AddDefaultIdentity<User>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
@@ -38,6 +39,7 @@ namespace MovieInfoSystem
                 options.Password.RequireNonAlphanumeric = false;
 
             })
+             .AddRoles<IdentityRole>()
              .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddControllersWithViews(options =>
@@ -47,7 +49,7 @@ namespace MovieInfoSystem
 
             services.AddTransient<IAuthorService, AuthorService>();
             services.AddTransient<IMovieService, MovieService>();
-            services.AddTransient<IIndexService, IndexService>();
+            services.AddTransient<IHomeService, HomeService>();
             services.AddTransient<IActorService, ActorService>();
             services.AddTransient<IDirectorService, DirectorService>();
 

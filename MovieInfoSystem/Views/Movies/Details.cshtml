@@ -35,7 +35,7 @@
                 </ul>
             </div>
         </div>
-        @if (Model.IsCreator)
+        @if (Model.IsCreator || User.IsInRole(WebConstants.AdministratorRoleName))
         {
             <form method="get" class="col-md-2">
                 <button type="submit" class="profile-edit-btn" asp-route-id="@Model.Id" asp-controller="Movies" asp-action="Edit">Edit Movie</button>

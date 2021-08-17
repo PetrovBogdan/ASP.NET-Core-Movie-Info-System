@@ -1,7 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using MovieInfoSystem.Services.Authors
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@using MovieInfoSystem.Data.Models
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 @inject IAuthorService Authors
 
 
@@ -10,14 +12,15 @@
     {
         var userId = User.GetId();
         var userIsAuthor = Authors.IsAuthor(userId);
+        var userIsAdmin = User.IsInRole(WebConstants.AdministratorRoleName);
 
-        @if (userIsAuthor)
+        @if (userIsAuthor && !userIsAdmin)
         {
             <li class="nav-item">
                 <a class="nav-link text-dark font-italic" asp-route-userId="@userId" asp-controller="Movies" asp-action="Mine">My Movies</a>
             </li>
         }
-        else
+        else if(!userIsAdmin)
         {
             <li class="nav-item">
                 <a class="nav-link text-dark font-italic" asp-area="" asp-controller="Authors" asp-action="Create">Become Author!</a>

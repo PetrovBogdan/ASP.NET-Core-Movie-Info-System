@@ -5,6 +5,7 @@
 
         public const int NameMaxLength = 20;
         public const int NameMinLength = 2;
+        public const int FullNameMaxLength = 40;
         public const int BiographyMinLength = 50;
         public const int BiographyMaxLength = 500000;
 

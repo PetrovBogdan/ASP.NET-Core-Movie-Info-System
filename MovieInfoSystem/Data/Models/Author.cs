@@ -2,8 +2,6 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    
-    using Microsoft.AspNetCore.Identity;
 
     using static DataConstants;
 
@@ -22,7 +20,7 @@
         [Required]
         public string UserId { get; set; }
 
-        public IdentityUser User { get; set; }
+        public User User { get; set; }
 
         public ICollection<Movie> Movies { get; set; } = new HashSet<Movie>();
 

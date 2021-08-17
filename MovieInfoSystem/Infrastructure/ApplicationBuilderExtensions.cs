@@ -1,25 +1,31 @@
 ﻿namespace MovieInfoSystem.Infrastructure
 {
+    using System;
     using System.Linq;
 
     using MovieInfoSystem.Data;
+    using System.Threading.Tasks;
     using MovieInfoSystem.Data.Models;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
 
+    using static WebConstants;
     public static class ApplicationBuilderExtensions
     {
         public static IApplicationBuilder PrepareDatabase
             (this IApplicationBuilder app)
         {
             var scopedServices = app.ApplicationServices.CreateScope();
+            var serviceProvider = scopedServices.ServiceProvider;
 
-            var data = scopedServices.ServiceProvider.GetService<ApplicationDbContext>();
+            var data = serviceProvider.GetRequiredService<ApplicationDbContext>();
 
             data.Database.Migrate();
 
             SeedGenres(data);
+            SeedAdministrator(serviceProvider);
 
             return app;
         }
@@ -50,6 +56,42 @@
             });
 
             data.SaveChanges();
+        }
+
+        private static void SeedAdministrator(IServiceProvider services)
+        {
+            var userManager = services.GetRequiredService<UserManager<User>>();
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+            Task.Run(async () =>
+            {
+                if (await roleManager.RoleExistsAsync(AdministratorRoleName))
+                {
+                    return;
+                }
+
+                var role = new IdentityRole { Name = AdministratorRoleName };
+
+                await roleManager
+                .CreateAsync(role);
+
+                const string adminEmail = "admin@mif.com";
+                const string adminPassword = "admin666";
+
+                var user = new User
+                {
+                    Email = adminEmail,
+                    UserName = adminEmail,
+                    FullName = "Administrator",
+                };
+
+                await userManager.CreateAsync(user, adminPassword);
+
+                await userManager.AddToRoleAsync(user, role.Name);
+            })
+              .GetAwaiter()
+              .GetResult();
+
         }
 
     }

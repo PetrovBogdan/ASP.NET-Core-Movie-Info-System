@@ -11,6 +11,7 @@
             string audio,
             int authorId,
             string creator,
+            bool userIsInTole,
             ICollection<int?> genres,
             ICollection<AddActorServiceModel> actors,
             ICollection<AddDirectorServiceModel> directors,

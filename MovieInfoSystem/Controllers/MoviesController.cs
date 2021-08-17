@@ -11,6 +11,8 @@
     using MovieInfoSystem.Services.Movies;
     using MovieInfoSystem.Services.Movies.Models;
 
+    using static WebConstants;
+
     public class MoviesController : Controller
     {
         private readonly IAuthorService authors;
@@ -28,7 +30,7 @@
         {
             var userId = this.GetUserId();
 
-            if (!authors.IsAuthor(userId))
+            if (!authors.IsAuthor(userId) && !this.User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Create", "Authors");
             }
@@ -46,7 +48,7 @@
             var userId = this.GetUserId();
             var authorId = this.authors.GetId(userId);
             var creator = this.User.GetId();
-
+            var userIsInTole = this.User.IsInRole(AdministratorRoleName);
             this.ValidateModelState(movie);
 
             if (!ModelState.IsValid)
@@ -69,10 +71,12 @@
                 return View(movieAsServiceModel);
             }
 
-            if (authorId == 0)
+            if (authorId == 0 && !userIsInTole)
             {
                 return RedirectToAction("Create", "Authors");
             }
+
+            
 
             this.movies.Create(movie.Title,
                      movie.Summary,
@@ -81,6 +85,7 @@
                      movie.Audio,
                      authorId,
                      creator,
+                     userIsInTole,
                      movie.GenreId,
                      movie.Actors,
                      movie.Directors,
@@ -119,8 +124,10 @@
         public IActionResult Edit(int id)
         {
             var movieCreator = this.movies.GetCreatorId(id);
+            var userId = this.User.GetId();
+            var userIsInRole = this.User.IsInRole(AdministratorRoleName);
 
-            if (movieCreator != this.User.GetId())
+            if (movieCreator != userId && !userIsInRole)
             {
                 return Unauthorized();
             }
@@ -140,7 +147,11 @@
                 return View(this.movies.GetEditDetails(id));
             }
 
-            if (this.movies.GetCreatorId(id) != this.User.GetId())
+            var creatorId = this.movies.GetCreatorId(id);
+            var userId = this.User.GetId();
+            var userIsInRole = this.User.IsInRole(AdministratorRoleName);
+
+            if (creatorId != userId && !userIsInRole)
             {
                 return Unauthorized();
             }
