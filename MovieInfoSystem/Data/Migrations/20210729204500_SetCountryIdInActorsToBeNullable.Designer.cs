@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieInfoSystem.Data;
+using MovieInfoSystem.Services.Index;
 
 namespace MovieInfoSystem.Data.Migrations
 {

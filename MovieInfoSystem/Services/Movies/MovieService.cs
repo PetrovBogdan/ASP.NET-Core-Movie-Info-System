@@ -1,12 +1,12 @@
 ﻿namespace MovieInfoSystem.Services.Movies
 {
+    using System;
     using System.Linq;
     using System.Collections.Generic;
 
     using MovieInfoSystem.Data;
     using MovieInfoSystem.Data.Models;
     using MovieInfoSystem.Services.Movies.Models;
-    using System;
 
     public class MovieService : IMovieService
     {
@@ -260,7 +260,6 @@
             data.SaveChanges();
         }
 
-
         public bool Delete(int id)
         {
             var movie = this.data
@@ -332,8 +331,8 @@
 
                 }).FirstOrDefault();
 
-
-        private void AddActors(ICollection<AddActorServiceModel> actors, Movie movieData)
+        private void AddActors(ICollection<AddActorServiceModel> actors,
+            Movie movieData)
         {
             if (actors != null)
             {
@@ -357,7 +356,8 @@
             }
         }
 
-        private void AddDirectors(ICollection<AddDirectorServiceModel> directors, Movie movieData)
+        private void AddDirectors(ICollection<AddDirectorServiceModel> directors,
+            Movie movieData)
         {
             if (directors != null)
             {
@@ -382,7 +382,8 @@
 
         }
 
-        private void AddCountries(ICollection<AddCountryServiceModel> countries, Movie movieData)
+        private void AddCountries(ICollection<AddCountryServiceModel> countries, 
+            Movie movieData)
         {
             if (countries != null)
             {

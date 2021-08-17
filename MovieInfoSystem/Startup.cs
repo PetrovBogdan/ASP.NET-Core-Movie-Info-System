@@ -12,6 +12,7 @@ namespace MovieInfoSystem
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.AspNetCore.Mvc;
     using MovieInfoSystem.Services.Movies;
+    using MovieInfoSystem.Services.Index;
 
     public class Startup
     {
@@ -44,6 +45,8 @@ namespace MovieInfoSystem
 
             services.AddTransient<IAuthorService, AuthorService>();
             services.AddTransient<IMovieService, MovieService>();
+            services.AddTransient<IIndexService, IndexService>();
+
 
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

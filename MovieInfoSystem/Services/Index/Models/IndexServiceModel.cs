@@ -1,8 +1,8 @@
-﻿namespace MovieInfoSystem.Models.Index
+﻿namespace MovieInfoSystem.Services.Index.Models
 {
     using System.Collections.Generic;
 
-    public class IndexViewModel
+    public class IndexServiceModel
     {
         public int TotalMovies { get; set; }
 
@@ -12,6 +12,6 @@
 
         public int TotalDirectors { get; set; }
 
-        public List<MovieIndexViewModel> Movies { get; init; }
+        public List<MovieIndexServiceModel> Movies { get; init; }
     }
 }

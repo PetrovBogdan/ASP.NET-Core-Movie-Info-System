@@ -1,53 +1,26 @@
 ﻿namespace MovieInfoSystem.Controllers
 {
-    using System.Linq;
     using System.Diagnostics;
 
-    using MovieInfoSystem.Data;
     using MovieInfoSystem.Models;
     using Microsoft.AspNetCore.Mvc;
-    using MovieInfoSystem.Models.Index;
     using Microsoft.Extensions.Logging;
+    using MovieInfoSystem.Services.Index;
 
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext data;
+        private readonly IIndexService index;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext data)
+        public HomeController(ILogger<HomeController> logger, IIndexService index)
         {
-            this.data = data;
+            this.index = index;
             _logger = logger;
         }
 
         public IActionResult Index()
-        {
-            var totalMovies = this.data.Movies.Count();
-            var totalActors = this.data.Actors.Count();
-            var totalDirectors = this.data.Directors.Count();
-            var totalUsers = this.data.Users.Count();
-
-            var movies = this.data
-                .Movies
-                .OrderByDescending(x => x.Id)
-                .Select(x => new MovieIndexViewModel
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Image = x.Image,
-                })
-                .Take(3)
-                .ToList();
-
-            return View(new IndexViewModel
-            {
-                TotalMovies = totalMovies,
-                TotalActors = totalActors,
-                TotalDirectors = totalDirectors,
-                TotalUsers = totalUsers,
-                Movies = movies,
-            });
-        }
+            => View(this.index
+                .Home());
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
