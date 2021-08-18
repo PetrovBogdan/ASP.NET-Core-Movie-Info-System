@@ -25,7 +25,7 @@
             data.Database.Migrate();
 
             SeedGenres(data);
-            SeedAdministrator(serviceProvider);
+            SeedAdministrator(serviceProvider, data);
 
             return app;
         }
@@ -58,7 +58,8 @@
             data.SaveChanges();
         }
 
-        private static void SeedAdministrator(IServiceProvider services)
+        private static void SeedAdministrator(IServiceProvider services,
+            ApplicationDbContext data)
         {
             var userManager = services.GetRequiredService<UserManager<User>>();
             var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
@@ -88,6 +89,18 @@
                 await userManager.CreateAsync(user, adminPassword);
 
                 await userManager.AddToRoleAsync(user, role.Name);
+
+                var authorData = new Author
+                {
+                    Name = "Admin",
+                    Email = adminEmail,
+                    UserId = data.Users.Where(x => x.Email == adminEmail).FirstOrDefault().Id,
+                };
+
+                data.Authors.Add(authorData);
+
+                data.SaveChanges();
+
             })
               .GetAwaiter()
               .GetResult();

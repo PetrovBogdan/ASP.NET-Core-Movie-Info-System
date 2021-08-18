@@ -48,7 +48,7 @@
             var userId = this.GetUserId();
             var authorId = this.authors.GetId(userId);
             var creator = this.User.GetId();
-            var userIsInTole = this.User.IsInRole(AdministratorRoleName);
+            var userIsAdmin = this.User.IsInRole(AdministratorRoleName);
             this.ValidateModelState(movie);
 
             if (!ModelState.IsValid)
@@ -71,7 +71,7 @@
                 return View(movieAsServiceModel);
             }
 
-            if (authorId == 0 && !userIsInTole)
+            if (authorId == 0 && !userIsAdmin)
             {
                 return RedirectToAction("Create", "Authors");
             }
@@ -84,8 +84,8 @@
                      movie.ImageUrl,
                      movie.Audio,
                      authorId,
-                     creator,
-                     userIsInTole,
+                     userIsAdmin,
+                     userId,
                      movie.GenreId,
                      movie.Actors,
                      movie.Directors,

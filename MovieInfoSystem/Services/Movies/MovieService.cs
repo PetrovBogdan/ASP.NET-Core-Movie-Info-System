@@ -21,8 +21,8 @@
             string image,
             string audio,
             int authorId,
-            string creator,
-            bool userIsInTole,
+            bool userIsAdmin,
+            string userId,
             ICollection<int?> genres,
             ICollection<AddActorServiceModel> actors,
             ICollection<AddDirectorServiceModel> directors,
@@ -30,9 +30,10 @@
         {
 
             //TODO: Give premision to administrators to add movies.
-            if (authorId == 0 && userIsInTole)
+            if (authorId == 0 && userIsAdmin)
             {
-                ;
+                authorId = this.data.Authors
+                    .FirstOrDefault(x => x.UserId == userId).Id;
             }
             var movieData = new Movie
             {
@@ -42,7 +43,7 @@
                 Image = image,
                 Audio = audio,
                 AuthorId = authorId,
-                Creator = creator,
+                Creator = userId,
             };
 
             foreach (var genreId in genres)
