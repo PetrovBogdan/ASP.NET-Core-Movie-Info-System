@@ -1,22 +1,37 @@
 ﻿namespace MovieInfoSystem.Test.Controllers
 {
+
     using Xunit;
-    
-    using Microsoft.AspNetCore.Mvc;
     using MovieInfoSystem.Controllers;
+    using MyTested.AspNetCore.Mvc;
+    using MovieInfoSystem.Services.Index.Models;
+
+    using static Data.Movies;
 
     public class HomeControllerTest
     {
         [Fact]
+
+        public void IndexShouldReturnViewWithCorrectModelAndData()
+                => MyMvc
+                     .Pipeline()
+                     .ShouldMap("/")
+                     .To<HomeController>(x => x.Index())
+                     .Which(controler => controler
+                         .WithData(GetTenMovies))
+                     .ShouldReturn()
+                     .View(view => view
+                     .WithModelOfType<IndexServiceModel>());
+
+        [Fact]
         public void ErrorShouldReturnView()
-        {
-            //Arrange
-            var homeController = new HomeController(null);
-            //Act
-            var result = homeController.Error();
-            //Assert
-            Assert.NotNull(result);
-            Assert.IsType<ViewResult>(result);
-        }
+            => MyMvc
+                 .Pipeline()
+                 .ShouldMap("/Home/Error")
+                 .To<HomeController>(x => x.Error())
+                 .Which()
+                 .ShouldReturn()
+                 .View();
+
     }
 }

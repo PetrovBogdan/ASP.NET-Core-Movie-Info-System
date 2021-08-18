@@ -29,7 +29,6 @@
             ICollection<AddCountryServiceModel> countries)
         {
 
-            //TODO: Give premision to administrators to add movies.
             if (authorId == 0 && userIsAdmin)
             {
                 authorId = this.data.Authors

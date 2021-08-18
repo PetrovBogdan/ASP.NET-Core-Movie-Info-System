@@ -73,8 +73,7 @@
 
                 var role = new IdentityRole { Name = AdministratorRoleName };
 
-                await roleManager
-                .CreateAsync(role);
+                await roleManager.CreateAsync(role);
 
                 const string adminEmail = "admin@mif.com";
                 const string adminPassword = "admin666";
@@ -94,7 +93,9 @@
                 {
                     Name = "Admin",
                     Email = adminEmail,
-                    UserId = data.Users.Where(x => x.Email == adminEmail).FirstOrDefault().Id,
+                    UserId = data.Users
+                                 .Where(x => x.Email == adminEmail)
+                             .FirstOrDefault().Id,
                 };
 
                 data.Authors.Add(authorData);

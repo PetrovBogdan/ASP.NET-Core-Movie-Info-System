@@ -43,7 +43,7 @@
 
             List<ActorsListingServiceModel> actors = new List<ActorsListingServiceModel>();
 
-            if (actorsQuery.Count() > 1)
+            if (actorsQuery.Count() > 0)
             {
                 actors = actorsQuery
                      .OrderByDescending(x => x.Id)

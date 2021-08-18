@@ -12,10 +12,8 @@
     {
         private readonly IAuthorService author;
 
-        public AuthorsController(IAuthorService author)
-        {
-            this.author = author;
-        }
+        public AuthorsController(IAuthorService author) 
+            => this.author = author;
 
         [Authorize]
         public IActionResult Create()

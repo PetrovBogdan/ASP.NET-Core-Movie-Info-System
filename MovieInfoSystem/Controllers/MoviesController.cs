@@ -47,7 +47,6 @@
         {
             var userId = this.GetUserId();
             var authorId = this.authors.GetId(userId);
-            var creator = this.User.GetId();
             var userIsAdmin = this.User.IsInRole(AdministratorRoleName);
             this.ValidateModelState(movie);
 
