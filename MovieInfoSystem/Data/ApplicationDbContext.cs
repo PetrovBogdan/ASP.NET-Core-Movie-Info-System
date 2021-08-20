@@ -31,7 +31,7 @@
 
         public DbSet<CountryMovie> CountryMovie { get; set; }
 
-        public DbSet<DirectorMovie> DirectorMOvie { get; set; }
+        public DbSet<DirectorMovie> DirectorMovie { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

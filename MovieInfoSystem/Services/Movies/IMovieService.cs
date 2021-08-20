@@ -6,7 +6,7 @@
     {
         public void Create(string title,
             string summary,
-            string duration,
+            int duration,
             string image,
             string audio,
             int authorId,
@@ -20,7 +20,7 @@
         public void Edit(int id,
             string title,
             string summary,
-            string duration,
+            int duration,
             string image,
             string audio,
             ICollection<AddActorServiceModel> actors,

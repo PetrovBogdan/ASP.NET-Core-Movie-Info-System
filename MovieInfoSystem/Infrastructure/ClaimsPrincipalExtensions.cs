@@ -1,7 +1,7 @@
-﻿using System.Security.Claims;
-
-namespace MovieInfoSystem.Infrastructure
+﻿namespace MovieInfoSystem.Infrastructure
 {
+    using System.Security.Claims;
+
     public static class ClaimsPrincipalExtensions
     {
         public static string GetId(this ClaimsPrincipal user)

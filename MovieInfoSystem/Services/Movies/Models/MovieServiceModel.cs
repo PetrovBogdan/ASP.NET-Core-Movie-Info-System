@@ -26,7 +26,7 @@
 
         [Required]
         [Display(Name = "Duration in minutes")]
-        public string Duration { get; set; }
+        public int Duration { get; set; }
 
         public ICollection<int?> GenreId { get; set; }
 

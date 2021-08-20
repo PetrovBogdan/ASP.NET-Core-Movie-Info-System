@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
+    using Microsoft.EntityFrameworkCore;
     using MovieInfoSystem.Data;
     using MovieInfoSystem.Data.Models;
     using MovieInfoSystem.Services.Actors.Models;
@@ -18,7 +18,7 @@
         public AllActorsServiceModel All(int currentPage,
             string searchTerm)
         {
-            var actorsQuery = this.data.Actors.AsQueryable();
+            var actorsQuery = this.data.Actors.AsSingleQuery();
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {

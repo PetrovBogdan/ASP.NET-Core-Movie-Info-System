@@ -24,7 +24,7 @@
         public string Summary { get; set; }
 
         [Required]
-        public string Duration { get; set; }
+        public int Duration { get; set; }
 
         public int AuthorId { get; set; }
 

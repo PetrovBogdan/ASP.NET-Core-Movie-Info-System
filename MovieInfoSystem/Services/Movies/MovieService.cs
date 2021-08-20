@@ -6,6 +6,7 @@
 
     using MovieInfoSystem.Data;
     using MovieInfoSystem.Data.Models;
+    using Microsoft.EntityFrameworkCore;
     using MovieInfoSystem.Services.Movies.Models;
 
     public class MovieService : IMovieService
@@ -17,7 +18,7 @@
 
         public void Create(string title,
             string summary,
-            string duration,
+            int duration,
             string image,
             string audio,
             int authorId,
@@ -33,6 +34,13 @@
             {
                 authorId = this.data.Authors
                     .FirstOrDefault(x => x.UserId == userId).Id;
+            }
+
+            var movieExists = this.data.Movies.Any(x => x.Title == title);
+
+            if (movieExists)
+            {
+                return;
             }
             var movieData = new Movie
             {
@@ -120,7 +128,7 @@
         public void Edit(int id,
             string title,
             string summary,
-            string duration,
+            int duration,
             string image,
             string audio,
             ICollection<AddActorServiceModel> actors,
@@ -145,7 +153,7 @@
         public AllMoviesServiceModel All(string searchTerm,
             int currentPage)
         {
-            var moviesQuery = this.data.Movies.AsQueryable();
+            var moviesQuery = this.data.Movies.AsSingleQuery();
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
