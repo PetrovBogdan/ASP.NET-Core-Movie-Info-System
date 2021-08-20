@@ -259,10 +259,17 @@
             return movies;
         }
 
-        public void AddComment(int id, string comment, string userId)
+        public bool AddComment(int id,
+            string comment, 
+            string userId)
         {
             var movie = this.data.Movies.FirstOrDefault(x => x.Id == id);
             var author = this.data.Authors.FirstOrDefault(x => x.UserId == userId);
+
+            if (author == null)
+            {
+                return false;
+            }
 
             var currComment = new Comment
             {
@@ -273,6 +280,9 @@
 
             movie.Comments.Add(currComment);
             data.SaveChanges();
+
+
+            return true;
         }
 
         public bool Delete(int id)

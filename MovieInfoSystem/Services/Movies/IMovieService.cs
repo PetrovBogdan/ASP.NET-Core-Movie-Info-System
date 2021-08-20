@@ -34,7 +34,7 @@
 
         public ICollection<MovieListingServiceModel> Mine(string userId);
 
-        public void AddComment(int id,
+        public bool AddComment(int id,
             string comment, 
             string userId);
 

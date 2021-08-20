@@ -75,7 +75,7 @@
                 return RedirectToAction("Create", "Authors");
             }
 
-            
+
 
             this.movies.Create(movie.Title,
                      movie.Summary,
@@ -179,12 +179,17 @@
                 this.ModelState.AddModelError(nameof(Comment), "The comment must be at least 5 characters long.");
             }
 
+            var currComment = this.movies.AddComment(id, comment, userId);
+
             if (!this.ModelState.IsValid)
             {
                 return RedirectToAction(nameof(Details), new { id = id });
             }
 
-            this.movies.AddComment(id, comment, userId);
+            if (currComment == false)
+            {
+                return RedirectToAction("Create", "Authors");
+            }
 
             return RedirectToAction(nameof(Details), new { id = id });
         }
