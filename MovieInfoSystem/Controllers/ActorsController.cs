@@ -9,25 +9,25 @@
 
     public class ActorsController : Controller
     {
-        private readonly IAuthorService authorService;
-        private readonly IActorService actor;
+        private readonly IAuthorService authors;
+        private readonly IActorService actors;
 
-        public ActorsController(IAuthorService authorService,
-            IActorService actor)
+        public ActorsController(IAuthorService authors,
+            IActorService actors)
         {
-            this.actor = actor;
-            this.authorService = authorService;
+            this.actors = actors;
+            this.authors = authors;
         }
 
         public IActionResult All(int currentPage,
             string searchTerm)
-            => View(this.actor
+            => View(this.actors
                 .All(currentPage, searchTerm));
 
         [Authorize]
         public IActionResult Details(int id)
         {
-            var actor = this.actor.Details(id);
+            var actor = this.actors.Details(id);
 
             if (actor == null)
             {
@@ -42,7 +42,7 @@
         {
             var userId = this.User.GetId();
 
-            if (!this.authorService.IsAuthor(userId))
+            if (!this.authors.IsAuthor(userId))
             {
                 return RedirectToAction("Create", "Authors");
             }
@@ -59,7 +59,7 @@
                 return View();
             }
 
-            if (this.actor.
+            if (this.actors.
                 AddDetails(
                 details.CountryName,
                 details.Biography,

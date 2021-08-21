@@ -1,0 +1,32 @@
+﻿@model List<CountriesListingServiceModel>
+
+@{
+    ViewBag.Title = "All Countries";
+}
+
+<div class="row">
+    @foreach (var country in Model)
+    {
+        <div class="p-lg-2">
+            <div class="card" style="width: 16rem; padding:7px;">
+                <img height="100" class="card-img-top" src="@country.Flag" alt="Card image cap">
+                <div class="card-body">
+                    <h6 class="card-title">@country.Name</h6>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title">Total actors: @country.Actors</h6>
+                    <h6 class="card-title">Total directors: @country.Directors</h6>
+                    <h6 class="card-title">Total Movies: @country.Movies</h6>
+                </div>
+                <div class="card-body">
+                    <a asp-controller="Countries"
+                       asp-action="Details"
+                       asp-route-id="@country.Id"
+                       class="card-link btn btn-primary text-center">
+                        Details
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

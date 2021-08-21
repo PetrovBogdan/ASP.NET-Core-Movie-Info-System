@@ -16,6 +16,7 @@ namespace MovieInfoSystem
     using MovieInfoSystem.Services.Actors;
     using MovieInfoSystem.Services.Directors;
     using MovieInfoSystem.Data.Models;
+    using MovieInfoSystem.Services.Countries;
 
     public class Startup
     {
@@ -52,6 +53,8 @@ namespace MovieInfoSystem
             services.AddTransient<IHomeService, HomeService>();
             services.AddTransient<IActorService, ActorService>();
             services.AddTransient<IDirectorService, DirectorService>();
+            services.AddTransient<ICountriesService, CountriesService>();
+
 
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

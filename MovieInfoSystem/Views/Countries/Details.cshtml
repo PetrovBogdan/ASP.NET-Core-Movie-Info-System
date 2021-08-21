@@ -1,0 +1,63 @@
+﻿@model CountryDetailsServiceModel
+
+@{
+    ViewBag.Title = "Country details";
+}
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col-md-12">
+            <img height="300" class="card-img-top" src="@Model.Flag" alt="Card image cap">
+        </div>
+    </div>
+</div>
+<h6 class="text-center mt-5">Actors</h6>
+@foreach (var actor in Model.Actors)
+{
+    <p class="text-center">
+        <a asp-controller="Actors"
+           asp-action="Details"
+           asp-route-id="@actor.Id">
+            @actor.FirstName @actor.LastName
+        </a>
+    </p>
+}
+<h6 class="text-center mt-5">Directors</h6>
+
+@foreach (var director in Model.Directors)
+{
+    <p class="text-center">
+        <a asp-controller="Directors"
+           asp-action="Details"
+           asp-route-id="@director.Id">
+            @director.FirstName @director.LastName
+        </a>
+    </p>
+}
+<h6 class="text-center mt-5">Movies</h6>
+
+@foreach (var movie in Model.Movies)
+{
+    <p class="text-center">
+        <a asp-controller="Movies"
+           asp-action="Details"
+           asp-route-id="@movie.Id">
+            @movie.Name
+        </a>
+    </p>
+}
+
+@if (string.IsNullOrWhiteSpace(Model.Flag))
+{
+    <div class="container text-center mt-5">
+        <form method="get">
+            <button asp-controller="Countries"
+                    asp-action="AddFlag"
+                    asp-route-id="@Model.Id"
+                    type="submit"
+                    class="btn btn-primary text-center">
+                Add flag
+            </button>
+        </form>
+    </div>
+}

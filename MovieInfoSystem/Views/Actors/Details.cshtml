@@ -10,58 +10,46 @@
             <div class="profile-img">
                 <img height="290" width="200" src="@Model.Picture" alt="Card image cap">
             </div>
+            <div class="row pt-4">
+                <div class="col-md-4">
+                    <label>Country:</label>
+                </div>
+                <div class="col-md-8">
+                    <form method="get">
+                        <a asp-controller="Countries"
+                           asp-action="Details"
+                           asp-route-id="@Model.Country.Id">
+                            <p>@Model.Country.Name</p>
+                        </a>
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <label>Movies:</label>
+                </div>
+                <div class="col-md-6">
+                    <form method="get">
+                        @foreach (var movie in Model.Movies)
+                        {
+                            <a asp-controller="Movies"
+                               asp-action="Details"
+                               asp-route-id="@movie.Id">
+                                <p>@movie.Title</p>
+                            </a>
+                        }
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="profile-head">
                 <h5>
                     @Model.FirstName @Model.LastName
                 </h5>
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Info</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Biography</a>
                     </li>
                 </ul>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-8">
-            <div class="tab-content profile-tab" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <div class="row pt-4">
-                        <div class="col-md-4">
-                            <label>Country:</label>
-                        </div>
-                        <div class="col-md-6">
-                            <form method="get">
-                                <a asp-controller="Countries"
-                                   asp-action="Details"
-                                   asp-route-id="@Model.Country.Id">
-                                    <p>@Model.Country.Name</p>
-                                </a>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label>Movies: </label>
-                        </div>
-                        <div class="col-md-6">
-                            @foreach (var movie in Model.Movies)
-                            {
-                                <form method="get">
-                                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">
-                                        <p>@movie.Title</p>
-                                    </a>
-                                </form>
-                            }
-                        </div>
-                    </div>
-                </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="row pt-4">
                         <div class="col-md-10">
@@ -72,14 +60,21 @@
             </div>
         </div>
     </div>
+
 </div>
 @if (string.IsNullOrWhiteSpace(Model.Country.Name) ||
- string.IsNullOrWhiteSpace(Model.Biography) ||
- string.IsNullOrWhiteSpace(Model.Picture))
+string.IsNullOrWhiteSpace(Model.Biography) ||
+string.IsNullOrWhiteSpace(Model.Picture))
 {
     <div class="text-center mt-5">
         <form method="get">
-            <button asp-controller="Actors" asp-action="AddDetails" asp-route-id="@Model.Id" type="submit" class="btn btn-primary text-center">Add details</button>
+            <button asp-controller="Actors"
+                    asp-action="AddDetails"
+                    asp-route-id="@Model.Id"
+                    type="submit"
+                    class="btn btn-primary text-center">
+                Add details
+            </button>
         </form>
     </div>
 }
