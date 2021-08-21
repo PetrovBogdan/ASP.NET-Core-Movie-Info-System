@@ -1,11 +1,12 @@
 ﻿namespace MovieInfoSystem.Services.Actors
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using Microsoft.EntityFrameworkCore;
+    using System.Collections.Generic;
+
     using MovieInfoSystem.Data;
     using MovieInfoSystem.Data.Models;
+    using Microsoft.EntityFrameworkCore;
     using MovieInfoSystem.Services.Actors.Models;
 
     public class ActorService : IActorService
@@ -81,10 +82,14 @@
                     Id = x.Id,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
-                    Country = x.Country.Name,
+                    Country = new ActorCountryServiceModel { Id = x.Country.Id, Name = x.Country.Name},
                     Picture = x.Picture,
                     Biography = x.Biography,
-                    Movies = x.Movies.Select(x => x.Movie.Title).ToList(),
+                    Movies = x.Movies.Select(m => new ActorMoviesServiceModel
+                    {
+                        Id = m.Movie.Id,
+                        Title = m.Movie.Title,
+                    }).ToList(),
                 })
                 .FirstOrDefault();
 

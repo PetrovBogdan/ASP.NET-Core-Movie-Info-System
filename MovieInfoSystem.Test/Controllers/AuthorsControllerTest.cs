@@ -1,11 +1,12 @@
 ﻿namespace MovieInfoSystem.Test.Controllers
 {
-    using Xunit;
     using System.Linq;
+
+    using Xunit;
     using MyTested.AspNetCore.Mvc;
+    using MovieInfoSystem.Data.Models;
     using MovieInfoSystem.Controllers;
     using MovieInfoSystem.Models.Authors;
-    using MovieInfoSystem.Data.Models;
 
     public class AuthorsControllerTest
     {
@@ -47,7 +48,7 @@
                     .Any(a =>
                          a.Name == name &&
                          a.Email == email &&
-                          a.UserId == TestUser.Identifier)))
+                         a.UserId == TestUser.Identifier)))
             .AndAlso()
             .ShouldReturn()
             .RedirectToAction("Add", "Movies");

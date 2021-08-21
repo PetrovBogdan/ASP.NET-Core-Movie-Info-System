@@ -3,9 +3,9 @@
     using Xunit;
     using MyTested.AspNetCore.Mvc;
     using MovieInfoSystem.Controllers;
+    using MovieInfoSystem.Services.Directors.Models;
 
     using static Data.Directors;
-    using MovieInfoSystem.Services.Directors.Models;
 
     public class DirectorsControllerTest
     {

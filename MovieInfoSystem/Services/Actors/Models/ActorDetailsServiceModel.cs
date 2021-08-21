@@ -9,12 +9,12 @@
 
         public string LastName { get; set; }
 
-        public string Country { get; set; }
+        public ActorCountryServiceModel Country { get; set; }
 
         public string Biography { get; set; }
 
         public string Picture { get; set; }
 
-        public ICollection<string> Movies { get; init; }
+        public ICollection<ActorMoviesServiceModel> Movies { get; init; }
     }
 }

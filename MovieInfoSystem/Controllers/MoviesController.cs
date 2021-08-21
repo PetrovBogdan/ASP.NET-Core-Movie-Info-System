@@ -6,9 +6,9 @@
     using MovieInfoSystem.Data.Models;
     using MovieInfoSystem.Models.Movies;
     using MovieInfoSystem.Infrastructure;
+    using MovieInfoSystem.Services.Movies;
     using MovieInfoSystem.Services.Authors;
     using Microsoft.AspNetCore.Authorization;
-    using MovieInfoSystem.Services.Movies;
     using MovieInfoSystem.Services.Movies.Models;
 
     using static WebConstants;

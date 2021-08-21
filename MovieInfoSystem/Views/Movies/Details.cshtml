@@ -57,8 +57,7 @@
                                 @foreach (var actor in Model.Actors)
                                 {
 
-                                    <a class="text-dark"
-                                       asp-action="Details"
+                                    <a asp-action="Details"
                                        asp-controller="Actors"
                                        asp-route-id="@actor.Id">
                                         @actor.FirstName @actor.LastName,
@@ -76,8 +75,7 @@
                                 @foreach (var director in Model.Directors)
                                 {
 
-                                    <a class="text-dark"
-                                       asp-action="Details"
+                                    <a asp-action="Details"
                                        asp-controller="Directors"
                                        asp-route-id="@director.Id">
                                         @director.FirstName @director.LastName,
@@ -91,7 +89,15 @@
                             <label>Countries: </label>
                         </div>
                         <div class="col-md-6">
-                            <p>@string.Join(", ", countries)</p>
+                            @foreach (var country in Model.Countries)
+                            {
+
+                                <a asp-action="Details"
+                                   asp-controller="Countries"
+                                   asp-route-id="@country.Id">
+                                    @country.Name,
+                                </a>
+                            }
                         </div>
                     </div>
                     <div class="row">

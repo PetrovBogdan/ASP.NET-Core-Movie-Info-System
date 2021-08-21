@@ -37,7 +37,13 @@
                             <label>Country:</label>
                         </div>
                         <div class="col-md-6">
-                            <p>@Model.Country</p>
+                            <form method="get">
+                                <a asp-controller="Countries"
+                                   asp-action="Details"
+                                   asp-route-id="@Model.Country.Id">
+                                    <p>@Model.Country.Name</p>
+                                </a>
+                            </form>
                         </div>
                     </div>
                     <div class="row">
@@ -47,7 +53,11 @@
                         <div class="col-md-6">
                             @foreach (var movie in Model.Movies)
                             {
-                                <p>@movie</p>
+                                <form method="get">
+                                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">
+                                        <p>@movie.Name</p>
+                                    </a>
+                                </form>
                             }
                         </div>
                     </div>
@@ -63,7 +73,7 @@
         </div>
     </div>
 </div>
-@if (string.IsNullOrWhiteSpace(Model.Country) ||
+@if (string.IsNullOrWhiteSpace(Model.Country.Name) ||
 string.IsNullOrWhiteSpace(Model.Biography) ||
 string.IsNullOrWhiteSpace(Model.Picture))
 {

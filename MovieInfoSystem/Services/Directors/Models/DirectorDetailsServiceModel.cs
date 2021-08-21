@@ -10,12 +10,12 @@
 
         public string LastName { get; set; }
 
-        public string Country { get; set; }
+        public DirectorCountryServiceModel Country { get; set; }
 
         public string Biography { get; set; }
 
         public string Picture { get; set; }
 
-        public ICollection<string> Movies { get; init; }
+        public ICollection<DirectorMovieServiceModel> Movies { get; init; }
     }
 }

@@ -81,10 +81,14 @@
                     Id = x.Id,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
-                    Country = x.Country.Name,
+                    Country = new DirectorCountryServiceModel { Id = x.Country.Id, Name = x.Country.Name},
                     Picture = x.Picture,
                     Biography = x.Biography,
-                    Movies = x.Movies.Select(x => x.Movie.Title).ToList(),
+                    Movies = x.Movies.Select(m => new DirectorMovieServiceModel
+                    {
+                        Id = m.Movie.Id,
+                        Name = m.Movie.Title,
+                    }).ToList(),
                 })
                 .FirstOrDefault();
 

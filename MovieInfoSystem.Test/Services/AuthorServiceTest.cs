@@ -1,9 +1,9 @@
 ﻿namespace MovieInfoSystem.Test.Services
 {
+    using Xunit;
+    using MovieInfoSystem.Test.Mocks;
     using MovieInfoSystem.Data.Models;
     using MovieInfoSystem.Services.Authors;
-    using MovieInfoSystem.Test.Mocks;
-    using Xunit;
 
     public class AuthorServiceTest
     {

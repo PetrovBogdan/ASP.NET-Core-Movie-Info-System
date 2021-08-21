@@ -1,8 +1,9 @@
 ﻿namespace MovieInfoSystem.Test.Mocks
 {
-    using Microsoft.EntityFrameworkCore;
-    using MovieInfoSystem.Data;
     using System;
+
+    using MovieInfoSystem.Data;
+    using Microsoft.EntityFrameworkCore;
 
     public static class DatabaseMock
     {
