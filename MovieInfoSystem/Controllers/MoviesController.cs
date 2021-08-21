@@ -205,6 +205,31 @@
             return RedirectToAction("All", "Movies");
         }
 
+        [Authorize]
+        public IActionResult RemoveDirector(int directorId, string title)
+        {
+            var movieId = this.movies.RemovieDirector(directorId, title);
+
+            return RedirectToAction(nameof(Edit), new { Id = movieId });
+        }
+
+        [Authorize]
+        public IActionResult RemoveActor(int actorId, string title)
+        {
+            var movieId = this.movies.RemoveActor(actorId, title);
+
+            return RedirectToAction(nameof(Edit), new { Id = movieId });
+
+        }
+
+        [Authorize]
+        public IActionResult RemoveCountry(int countryId, string title)
+        {
+            var movieId = this.movies.RemoveCountry(countryId, title);
+
+            return RedirectToAction(nameof(Edit), new { Id = movieId });
+        }
+
         private void ValidateModelState(MovieFormModel movie)
         {
             if (movie.GenreId != null)

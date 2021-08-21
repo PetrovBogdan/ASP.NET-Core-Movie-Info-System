@@ -81,7 +81,8 @@
                     Id = x.Id,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
-                    Country = new DirectorCountryServiceModel { Id = x.Country.Id, Name = x.Country.Name},
+                    Country = new DirectorCountryServiceModel
+                    { Id = x.Country.Id, Name = x.Country.Name },
                     Picture = x.Picture,
                     Biography = x.Biography,
                     Movies = x.Movies.Select(m => new DirectorMovieServiceModel
@@ -91,6 +92,7 @@
                     }).ToList(),
                 })
                 .FirstOrDefault();
+
 
         public bool AddDetails(string country,
             string biography,

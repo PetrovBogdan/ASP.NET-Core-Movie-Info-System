@@ -40,6 +40,12 @@
 
         public bool Delete(int id);
 
+        public int RemovieDirector(int directorId, string title);
+
+        public int RemoveActor(int actorId, string title);
+
+        public int RemoveCountry(int countryId, string title);
+
         public ICollection<MovieGenreServiceModel> GetGenres();
 
         public string GetCreatorId(int userId);

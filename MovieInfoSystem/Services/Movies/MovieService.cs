@@ -260,7 +260,7 @@
         }
 
         public bool AddComment(int id,
-            string comment, 
+            string comment,
             string userId)
         {
             var movie = this.data.Movies.FirstOrDefault(x => x.Id == id);
@@ -303,6 +303,42 @@
             return true;
         }
 
+        public int RemovieDirector(int directorId, string title)
+        {
+            var directorMovie = this.data.DirectorMovie.FirstOrDefault(x => x.DirectorId == directorId);
+            var movie = this.GetMovieByTitle(title);
+
+            movie.Directors.Remove(directorMovie);
+
+            this.data.SaveChanges();
+
+            return movie.Id;
+        }
+
+        public int RemoveActor(int actorId, string title)
+        {
+            var actorMovie = this.data.ActorMovie.FirstOrDefault(x => x.ActorId == actorId);
+            var movie = this.GetMovieByTitle(title);
+
+            movie.Actors.Remove(actorMovie);
+
+            this.data.SaveChanges();
+
+            return movie.Id;
+        }
+
+        public int RemoveCountry(int countryId, string title)
+        {
+            var countryMovie = this.data.CountryMovie.FirstOrDefault(x => x.CountryId == countryId);
+            var movie = this.GetMovieByTitle(title);
+
+            movie.Countries.Remove(countryMovie);
+
+            this.data.SaveChanges();
+
+            return movie.Id;
+        }
+
         public ICollection<MovieGenreServiceModel> GetGenres()
             => this.data
             .Genres
@@ -341,20 +377,28 @@
                     }).ToList(),
                     Actors = x.Actors.Select(a => new AddActorServiceModel
                     {
+                        ActorId = a.ActorId,
                         FirstName = a.Actor.FirstName,
                         LastName = a.Actor.LastName,
                     }).ToList(),
                     Directors = x.Directors.Select(d => new AddDirectorServiceModel
                     {
+                        DirectorId = d.Director.Id,
                         FirstName = d.Director.FirstName,
                         LastName = d.Director.LastName,
                     }).ToList(),
                     Countries = x.Countries.Select(c => new AddCountryServiceModel
                     {
+                        CountryId = c.Country.Id,
                         Name = c.Country.Name,
                     }).ToList()
 
                 }).FirstOrDefault();
+
+        private Movie GetMovieByTitle(string title)
+            => this.data
+            .Movies
+            .FirstOrDefault(x => x.Title == title);
 
         private void AddActors(ICollection<AddActorServiceModel> actors,
             Movie movieData)
@@ -407,7 +451,7 @@
 
         }
 
-        private void AddCountries(ICollection<AddCountryServiceModel> countries, 
+        private void AddCountries(ICollection<AddCountryServiceModel> countries,
             Movie movieData)
         {
             if (countries != null)

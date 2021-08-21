@@ -5,6 +5,8 @@
     using static Data.DataConstants;
     public class AddActorServiceModel
     {
+        public int ActorId { get; set; }
+
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
         public string FirstName { get; set; }

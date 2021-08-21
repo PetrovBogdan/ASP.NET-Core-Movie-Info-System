@@ -30,7 +30,15 @@
                             <ul>
                                 @foreach (var actor in Model.Actors)
                                 {
-                                    <li>@actor.FirstName @actor.LastName</li>
+                                    <li>
+                                        @actor.FirstName @actor.LastName -->
+                                        <button asp-controller="Movies"
+                                                asp-action="RemoveActor"
+                                                asp-route-actorId="@actor.ActorId"
+                                                class="border-0 text-danger bg-transparent">
+                                            Remove from movie
+                                        </button>
+                                    </li>
                                 }
                             </ul>
                         </li>
@@ -43,7 +51,15 @@
                             <ul>
                                 @foreach (var director in Model.Directors)
                                 {
-                                    <li>@director.FirstName @director.LastName</li>
+                                    <li>
+                                        @director.FirstName @director.LastName -->
+                                        <button asp-controller="Movies"
+                                                asp-action="RemoveDirector"
+                                                asp-route-directorId="@director.DirectorId"
+                                                class="border-0 text-danger bg-transparent">
+                                            Remove from movie
+                                        </button>
+                                    </li>
                                 }
                             </ul>
                         </li>
@@ -56,7 +72,15 @@
                             <ul>
                                 @foreach (var country in Model.Countries)
                                 {
-                                    <li>@country.Name</li>
+                                    <li>
+                                        @country.Name -->
+                                        <button asp-controller="Movies"
+                                                asp-action="RemoveCountry"
+                                                asp-route-countryId="@country.CountryId"
+                                                class="border-0 text-danger bg-transparent">
+                                            Remove from movie
+                                        </button>
+                                    </li>
                                 }
                             </ul>
                         </li>

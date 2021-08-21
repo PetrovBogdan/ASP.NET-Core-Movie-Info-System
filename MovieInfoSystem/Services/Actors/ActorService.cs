@@ -82,7 +82,11 @@
                     Id = x.Id,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
-                    Country = new ActorCountryServiceModel { Id = x.Country.Id, Name = x.Country.Name},
+                    Country = new ActorCountryServiceModel
+                    {
+                        Id = x.Country.Id,
+                        Name = x.Country.Name
+                    },
                     Picture = x.Picture,
                     Biography = x.Biography,
                     Movies = x.Movies.Select(m => new ActorMoviesServiceModel

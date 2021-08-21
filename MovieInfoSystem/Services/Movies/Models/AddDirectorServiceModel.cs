@@ -5,6 +5,8 @@
     using static Data.DataConstants;
     public class AddDirectorServiceModel
     {
+        public int DirectorId { get; set; }
+
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
         public string FirstName { get; set; }

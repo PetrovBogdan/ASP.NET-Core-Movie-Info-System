@@ -45,7 +45,12 @@ else
                         <h6 class="card-title">@director.FirstName @director.LastName</h6>
                     </div>
                     <div class="card-body">
-                        <a asp-controller="Directors" asp-action="Details" asp-route-id="@director.Id" class="card-link btn btn-primary text-center">Details</a>
+                        <a asp-controller="Directors"
+                           asp-action="Details"
+                           asp-route-id="@director.Id"
+                           class="card-link btn btn-primary text-center">
+                            Details
+                        </a>
                     </div>
                 </div>
             </div>
