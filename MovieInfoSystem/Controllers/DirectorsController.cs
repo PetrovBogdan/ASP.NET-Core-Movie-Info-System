@@ -60,8 +60,8 @@
                 return View();
             }
 
-            if (this.director.
-                AddDetails
+            if (this.director
+                .AddDetails
                 (details.CountryName,
                 details.Biography,
                 details.Picture,

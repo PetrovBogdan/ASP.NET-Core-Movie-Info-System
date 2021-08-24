@@ -6,6 +6,7 @@
     {
         [Url]
         [Required]
+        [Display(Name ="Flag URL")]
         public string FlagUrl { get; set; }
     }
 }

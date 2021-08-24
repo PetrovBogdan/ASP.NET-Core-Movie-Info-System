@@ -75,8 +75,6 @@
                 return RedirectToAction("Create", "Authors");
             }
 
-
-
             this.movies.Create(movie.Title,
                      movie.Summary,
                      movie.Duration,
@@ -245,7 +243,7 @@
             }
             else
             {
-                this.ModelState.AddModelError(nameof(movie.Actors),
+                this.ModelState.AddModelError(nameof(movie.Genres),
                     "You must enter at least 1 genre in order to create a movie.");
             }
 

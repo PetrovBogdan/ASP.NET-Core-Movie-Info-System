@@ -105,8 +105,6 @@
             })
               .GetAwaiter()
               .GetResult();
-
         }
-
     }
 }

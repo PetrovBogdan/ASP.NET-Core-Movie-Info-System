@@ -1,11 +1,10 @@
 ﻿namespace MovieInfoSystem.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
-    using MovieInfoSystem.Services.Countries;
-    using MovieInfoSystem.Services.Authors;
     using MovieInfoSystem.Infrastructure;
-    using MovieInfoSystem.Models.Countries;
+    using MovieInfoSystem.Services.Authors;
+    using MovieInfoSystem.Services.Countries;
+    using Microsoft.AspNetCore.Authorization;
 
     public class CountriesController : Controller
     {

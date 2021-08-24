@@ -53,7 +53,7 @@
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Display(Name ="Full Name")]
+            [Display(Name = "Full Name")]
             [StringLength(FullNameMaxLength)]
             public string FullName { get; set; }
 
@@ -82,7 +82,7 @@
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = Input.Email, Email = Input.Email };
+                var user = new User { UserName = Input.Email, Email = Input.Email, FullName = Input.FullName };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -115,7 +115,6 @@
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return Page();
         }
     }

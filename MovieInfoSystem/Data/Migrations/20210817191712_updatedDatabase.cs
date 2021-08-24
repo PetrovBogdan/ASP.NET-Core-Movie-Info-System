@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace MovieInfoSystem.Migrations
+﻿namespace MovieInfoSystem.Migrations
 {
+    using System;
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class updatedDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

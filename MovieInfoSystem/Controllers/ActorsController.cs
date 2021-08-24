@@ -3,9 +3,9 @@
     using Microsoft.AspNetCore.Mvc;
     using MovieInfoSystem.Models.Actors;
     using MovieInfoSystem.Infrastructure;
+    using MovieInfoSystem.Services.Actors;
     using MovieInfoSystem.Services.Authors;
     using Microsoft.AspNetCore.Authorization;
-    using MovieInfoSystem.Services.Actors;
 
     public class ActorsController : Controller
     {

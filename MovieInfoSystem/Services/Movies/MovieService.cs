@@ -36,12 +36,7 @@
                     .FirstOrDefault(x => x.UserId == userId).Id;
             }
 
-            var movieExists = this.data.Movies.Any(x => x.Title == title);
 
-            if (movieExists)
-            {
-                return;
-            }
             var movieData = new Movie
             {
                 Title = title,
@@ -68,8 +63,12 @@
             this.AddDirectors(directors, movieData);
             this.AddCountries(countries, movieData);
 
-            this.data.Movies.Add(movieData);
-            this.data.SaveChanges();
+            if (!this.data.Movies.Any(x => x.Title == movieData.Title))
+            {
+                this.data.Movies.Add(movieData);
+                this.data.SaveChanges();
+            }
+
         }
 
         public MovieDetailsServiceModel Details(int id,
@@ -420,7 +419,10 @@
                         };
                     }
 
-                    movieData.Actors.Add(new ActorMovie { Actor = currActor });
+                    if (!this.data.ActorMovie.Any(x => x.Actor == currActor))
+                    {
+                        movieData.Actors.Add(new ActorMovie { Actor = currActor });
+                    }
                 }
             }
         }
@@ -445,7 +447,10 @@
                         };
                     }
 
-                    movieData.Directors.Add(new DirectorMovie { Director = currDirector });
+                    if (!this.data.DirectorMovie.Any(x => x.Director == currDirector))
+                    {
+                        movieData.Directors.Add(new DirectorMovie { Director = currDirector });
+                    }
                 }
             }
 
@@ -470,7 +475,11 @@
                         };
                     }
 
-                    movieData.Countries.Add(new CountryMovie { Country = currCountry });
+                    if (!this.data.CountryMovie.Any(x => x.Country == currCountry))
+                    {
+                        movieData.Countries.Add(new CountryMovie { Country = currCountry });
+                    }
+
                 }
             }
         }
