@@ -14,14 +14,14 @@
         [Fact]
         public void CountriesAllShouldReturnViewWithCorrectModelAndData()
             => MyMvc
-                     .Pipeline()
-                     .ShouldMap("/Countries/All")
-                     .To<CountriesController>(x => x.All())
-                     .Which(controler => controler
-                         .WithData(GetTenCountries))
-                     .ShouldReturn()
-                     .View(view => view
-                     .WithModelOfType<List<CountriesListingServiceModel>>());
+                  .Pipeline()
+                  .ShouldMap("/Countries/All")
+                  .To<CountriesController>(x => x.All())
+                  .Which(controler => controler
+                      .WithData(GetTenCountries))
+                  .ShouldReturn()
+                  .View(view => view
+                      .WithModelOfType<List<CountriesListingServiceModel>>());
 
     }
 }

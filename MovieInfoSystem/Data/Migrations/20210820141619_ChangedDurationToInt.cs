@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace MovieInfoSystem.Migrations
+﻿namespace MovieInfoSystem.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class ChangedDurationToInt : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -1,6 +1,5 @@
 ﻿namespace MovieInfoSystem.Controllers
 {
-    using MovieInfoSystem.Data;
     using Microsoft.AspNetCore.Mvc;
     using MovieInfoSystem.Infrastructure;
     using MovieInfoSystem.Services.Authors;

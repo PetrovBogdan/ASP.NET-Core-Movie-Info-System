@@ -302,7 +302,8 @@
             return true;
         }
 
-        public int RemovieDirector(int directorId, string title)
+        public int RemovieDirector(int directorId, 
+            string title)
         {
             var directorMovie = this.data.DirectorMovie.FirstOrDefault(x => x.DirectorId == directorId);
             var movie = this.GetMovieByTitle(title);
@@ -314,7 +315,8 @@
             return movie.Id;
         }
 
-        public int RemoveActor(int actorId, string title)
+        public int RemoveActor(int actorId,
+            string title)
         {
             var actorMovie = this.data.ActorMovie.FirstOrDefault(x => x.ActorId == actorId);
             var movie = this.GetMovieByTitle(title);
@@ -326,7 +328,8 @@
             return movie.Id;
         }
 
-        public int RemoveCountry(int countryId, string title)
+        public int RemoveCountry(int countryId, 
+            string title)
         {
             var countryMovie = this.data.CountryMovie.FirstOrDefault(x => x.CountryId == countryId);
             var movie = this.GetMovieByTitle(title);

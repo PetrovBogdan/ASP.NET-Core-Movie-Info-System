@@ -136,7 +136,8 @@
 
         [HttpPost]
         [Authorize]
-        public IActionResult Edit(int id, MovieFormModel movie)
+        public IActionResult Edit(int id, 
+            MovieFormModel movie)
         {
 
             if (!ModelState.IsValid)
@@ -168,7 +169,8 @@
 
         [HttpPost]
         [Authorize]
-        public IActionResult AddComment(int id, string comment)
+        public IActionResult AddComment(int id, 
+            string comment)
         {
             var userId = this.GetUserId();
 
@@ -204,7 +206,8 @@
         }
 
         [Authorize]
-        public IActionResult RemoveDirector(int directorId, string title)
+        public IActionResult RemoveDirector(int directorId,
+            string title)
         {
             var movieId = this.movies.RemovieDirector(directorId, title);
 
@@ -212,7 +215,8 @@
         }
 
         [Authorize]
-        public IActionResult RemoveActor(int actorId, string title)
+        public IActionResult RemoveActor(int actorId, 
+            string title)
         {
             var movieId = this.movies.RemoveActor(actorId, title);
 
@@ -221,7 +225,8 @@
         }
 
         [Authorize]
-        public IActionResult RemoveCountry(int countryId, string title)
+        public IActionResult RemoveCountry(int countryId,
+            string title)
         {
             var movieId = this.movies.RemoveCountry(countryId, title);
 

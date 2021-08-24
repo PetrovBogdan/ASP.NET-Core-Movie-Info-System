@@ -47,17 +47,14 @@
     </p>
 }
 
-@if (string.IsNullOrWhiteSpace(Model.Flag))
-{
-    <div class="container text-center mt-5">
-        <form method="get">
-            <button asp-controller="Countries"
-                    asp-action="AddFlag"
-                    asp-route-id="@Model.Id"
-                    type="submit"
-                    class="btn btn-primary text-center">
-                Add flag
-            </button>
-        </form>
-    </div>
-}
+<div class="container text-center mt-5">
+    <form method="get">
+        <button asp-controller="Countries"
+                asp-action="AddFlag"
+                asp-route-id="@Model.Id"
+                type="submit"
+                class="btn btn-primary text-center">
+            @(Model.Flag == null ? "Add flag" : "Change flag")
+        </button>
+    </form>
+</div>

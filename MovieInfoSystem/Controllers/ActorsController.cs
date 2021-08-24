@@ -52,7 +52,8 @@
 
         [HttpPost]
         [Authorize]
-        public IActionResult AddDetails(AddActorDetailsFormModel details, int id)
+        public IActionResult AddDetails(AddActorDetailsFormModel details, 
+            int id)
         {
             if (!this.ModelState.IsValid)
             {

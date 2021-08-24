@@ -35,7 +35,7 @@
                 </ul>
             </div>
         </div>
-        @if (Model.IsCreator || User.IsInRole(WebConstants.AdministratorRoleName))
+        @if (Model.IsCreator || this.User.IsInRole(WebConstants.AdministratorRoleName))
         {
             <form method="get" class="col-md-2">
                 <button type="submit" class="profile-edit-btn"
